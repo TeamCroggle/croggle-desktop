@@ -1,4 +1,4 @@
-package de.croggle.data.persistence.manager;
+package de.croggle.backends.sqlite;
 
 public class SQLException extends RuntimeException {
 

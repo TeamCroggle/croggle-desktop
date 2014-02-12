@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.croggle.backends.BackendHelper;
+import de.croggle.backends.sqlite.ContentValues;
+import de.croggle.backends.sqlite.Cursor;
 import de.croggle.game.achievement.Achievement;
-import de.croggle.util.BackendHelper;
 
 /**
  * A concrete table manager which is responsible for managing the SQLite table

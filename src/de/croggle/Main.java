@@ -2,8 +2,8 @@ package de.croggle;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
-import de.croggle.data.DesktopLocalizationBackend;
-import de.croggle.data.LocalizationBackend;
+import de.croggle.backends.LocalizationBackend;
+import de.croggle.backends.desktop.DesktopLocalizationBackend;
 import de.croggle.data.LocalizationHelper;
 
 /**

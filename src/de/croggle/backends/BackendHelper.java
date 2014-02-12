@@ -1,4 +1,4 @@
-package de.croggle.util;
+package de.croggle.backends;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -6,8 +6,8 @@ import java.lang.reflect.Method;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 
-import de.croggle.data.persistence.manager.ContentValues;
-import de.croggle.data.persistence.manager.DatabaseHelper;
+import de.croggle.backends.sqlite.ContentValues;
+import de.croggle.backends.sqlite.DatabaseHelper;
 
 /**
  * A class to help with additional capabilities of the different backends,

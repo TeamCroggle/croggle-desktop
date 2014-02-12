@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.croggle.AlligatorApp;
-import de.croggle.data.LocalizationBackend;
+import de.croggle.backends.LocalizationBackend;
 import de.croggle.data.LocalizationHelper;
 import de.croggle.data.TestLocalizationBackend;
 import de.croggle.data.persistence.LevelProgress;

@@ -1,6 +1,8 @@
-package de.croggle.data;
+package de.croggle.backends.desktop;
 
 import java.util.Locale;
+
+import de.croggle.backends.LocalizationBackend;
 
 public class DesktopLocalizationBackend implements LocalizationBackend {
 

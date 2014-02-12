@@ -1,4 +1,4 @@
-package de.croggle.data.persistence.manager;
+package de.croggle.backends.sqlite;
 
 /**
  * This class is responsible for creating and managing the database with its
