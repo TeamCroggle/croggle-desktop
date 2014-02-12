@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="tools/ant-contrib-1.0b3.jar"/>
-	<classpathentry kind="lib" path="tools/gdx-tools.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/source/gdx-backend-lwjgl-sources.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
-	<classpathentry kind="lib" path="libs/gdx.jar"/>
-	<classpathentry kind="lib" path="libs/source/gdx-freetype-sources.jar"/>
-	<classpathentry kind="lib" path="libs/source/gdx-sources.jar"/>
-	<classpathentry kind="lib" path="libs/gdx-freetype.jar"/>
+	<classpathentry kind="lib" path="libs/gdx.jar" sourcepath="libs/source/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-freetype.jar" sourcepath="libs/source/gdx-freetype-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
