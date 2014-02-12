@@ -3,6 +3,8 @@ package de.croggle.game.achievement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Vector2;
+
 import de.croggle.AlligatorApp;
 import de.croggle.data.persistence.Statistic;
 import de.croggle.data.persistence.manager.PersistenceManager;
@@ -44,25 +46,6 @@ public class AchievementController {
 	}
 
 	/**
-	 * Converts an input from the database into a list of actual achievements.
-	 * 
-	 * @param tupels
-	 *            information coming from the database
-	 * @return list of achievements represented in the input
-	 */
-	protected List<Achievement> convertInputFromDatabase(SparseIntArray tupels) {
-		List<Achievement> converted = new ArrayList<Achievement>();
-		for (int i = 0; i < tupels.size(); i++) {
-			int id = tupels.keyAt(i);
-			Achievement achievement = AchievementFactory.createAchievement(id);
-			achievement.setIndex(tupels.valueAt(i));
-			converted.add(achievement);
-		}
-		return converted;
-
-	}
-
-	/**
 	 * Initiates the available achievements.
 	 */
 	private void initiateAvailableAchievements() {
@@ -86,10 +69,11 @@ public class AchievementController {
 	public void changeUnlockedAchievements(String profileName) {
 		initiateAvailableAchievements();
 		PersistenceManager pm = game.getPersistenceManager();
-		SparseIntArray unlockedAchievements = pm
+		List<Vector2> unlockedAchievements = pm
 				.getAllUnlockedAchievements(profileName);
-		for (Achievement achievement : availableAchievements) {
-			achievement.setIndex(unlockedAchievements.get(achievement.getId()));
+		for (Vector2 unlocked : unlockedAchievements) {
+			availableAchievements.get((int) unlocked.x).setIndex(
+					(int) unlocked.y);
 		}
 
 	}

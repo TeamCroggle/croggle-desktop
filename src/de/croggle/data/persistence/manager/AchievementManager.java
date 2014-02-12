@@ -1,10 +1,10 @@
 package de.croggle.data.persistence.manager;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.util.SparseIntArray;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.math.Vector2;
+
 import de.croggle.game.achievement.Achievement;
 
 /**
@@ -109,9 +109,9 @@ public class AchievementManager extends TableManager {
 	 * @return a sparseIntArray containing the ids and states of all
 	 *         achievements unlocked by the user
 	 */
-	SparseIntArray getUnlockedAchievements(String profileName) {
+	List<Vector2> getUnlockedAchievements(String profileName) {
 
-		SparseIntArray unlockedAchievements = new SparseIntArray();
+		ArrayList<Vector2> unlockedAchievements = new ArrayList<Vector2>();
 
 		String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
 				+ KEY_PROFILE_NAME + " = '" + profileName + "'";
@@ -122,13 +122,13 @@ public class AchievementManager extends TableManager {
 						.getColumnIndex(KEY_ACHIEVEMENT_ID));
 				int index = cursor.getInt(cursor
 						.getColumnIndex(KEY_ACHIEVEMENT_INDEX));
-				unlockedAchievements.put(achievementId, index);
+				unlockedAchievements.add(new Vector2(achievementId, index));
 			} while (cursor.moveToNext());
 		}
 		return unlockedAchievements;
 	}
 
-	
+	@Override
 	void clearTable() {
 		database.execSQL("delete from " + TABLE_NAME);
 	}

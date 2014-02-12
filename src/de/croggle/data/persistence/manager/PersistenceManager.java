@@ -2,8 +2,7 @@ package de.croggle.data.persistence.manager;
 
 import java.util.List;
 
-import android.content.Context;
-import android.util.SparseIntArray;
+import com.badlogic.gdx.math.Vector2;
 
 import de.croggle.AlligatorApp;
 import de.croggle.data.persistence.LevelProgress;
@@ -22,32 +21,32 @@ public class PersistenceManager {
 	/**
 	 * The profileManager is used to save and load Profiles.
 	 */
-	private ProfileManager profileManager;
+	private final ProfileManager profileManager;
 
 	/**
 	 * The settingManager is used to save and load Settings.
 	 */
-	private SettingManager settingManager;
+	private final SettingManager settingManager;
 
 	/**
 	 * The statisticManager is used to save and load Statistics.
 	 */
-	private StatisticManager statisticManager;
+	private final StatisticManager statisticManager;
 
 	/**
 	 * The levelProgressManager is used to save and load LevelProgresses.
 	 */
-	private LevelProgressManager levelProgressManager;
+	private final LevelProgressManager levelProgressManager;
 
 	/**
 	 * The AchievementManager is used to save and load unlocked Achievements.
 	 */
-	private AchievementManager achievementManager;
+	private final AchievementManager achievementManager;
 
 	/**
 	 * The reference to the central game object.
 	 */
-	private AlligatorApp game;
+	private final AlligatorApp game;
 
 	/**
 	 * Creates a new PersistenceManager and initializes the different managers.
@@ -108,7 +107,7 @@ public class PersistenceManager {
 			achievementManager.close();
 
 		}
-		
+
 	}
 
 	/**
@@ -303,9 +302,9 @@ public class PersistenceManager {
 	 *         achievements unlocked by the user
 	 */
 
-	public SparseIntArray getAllUnlockedAchievements(String profileName) {
+	public List<Vector2> getAllUnlockedAchievements(String profileName) {
 		achievementManager.open();
-		SparseIntArray unlockedAchievements = achievementManager
+		List<Vector2> unlockedAchievements = achievementManager
 				.getUnlockedAchievements(profileName);
 		achievementManager.close();
 		return unlockedAchievements;
