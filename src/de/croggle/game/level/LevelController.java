@@ -1,10 +1,12 @@
 package de.croggle.game.level;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.res.AssetManager;
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
 import de.croggle.AlligatorApp;
 
 /**
@@ -12,9 +14,10 @@ import de.croggle.AlligatorApp;
  */
 public class LevelController {
 	// The index of the package the controller controls
-	private int packageIndex;
+	private final int packageIndex;
 	private List<Level> levels;
-	private AlligatorApp game;
+	private final AlligatorApp game;
+
 	/**
 	 * Creates the controller with the given package index. It will manage the
 	 * levels from the level package defined by <code>packageIndex</code>.
@@ -44,7 +47,6 @@ public class LevelController {
 		return levels.get(levelIndex);
 	}
 
-
 	/**
 	 * Returns the package index of the package of the level the controller
 	 * currently holds.
@@ -69,27 +71,38 @@ public class LevelController {
 	 * Method to load the level of the package the LevelController manages.
 	 */
 	private void getLevelFromPackage() {
-		AssetManager manager = game.getContext().getAssets();
-		String[] levelNames = null;
-		try {
-			levelNames = manager.list("json/levels/"
-					+ String.format("%02d", this.packageIndex));
-		} catch (IOException e) {
-			// TODO
+		FileHandle dirHandle;
+		if (Gdx.app.getType() == ApplicationType.Android) {
+			dirHandle = Gdx.files.internal("json/levels/");
+		} else {
+			// ApplicationType.Desktop ..
+			dirHandle = Gdx.files.internal("./assets/json/levels/");
 		}
+		FileHandle[] files = dirHandle.list();
+		String[] levelNames = new String[files.length];
+		for (int i = 0; i < files.length; i++) {
+			levelNames[i] = files[i].name();
+		}
+
 		int numberOfLevel = levelNames.length - 1;
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < numberOfLevel; i++) {
 			levels.add(LevelLoadHelper.instantiate(this.packageIndex, i,
 					this.game));
 		}
-		
-		for(int i = 0; i < levels.size(); i++){
-			if(!(game.getPersistenceManager().getLevelProgress(game.getProfileController().getCurrentProfileName(), levels.get(i).getLevelId()) == null)){
-				if(game.getPersistenceManager().getLevelProgress(game.getProfileController().getCurrentProfileName(), levels.get(i).getLevelId()).isSolved()){
+
+		for (int i = 0; i < levels.size(); i++) {
+			if (!(game.getPersistenceManager().getLevelProgress(
+					game.getProfileController().getCurrentProfileName(),
+					levels.get(i).getLevelId()) == null)) {
+				if (game.getPersistenceManager()
+						.getLevelProgress(
+								game.getProfileController()
+										.getCurrentProfileName(),
+								levels.get(i).getLevelId()).isSolved()) {
 					levels.get(i).setSolvedTrue();
-					if(i+1 < levels.size()){
-						levels.get(i+1).setUnlocked(true);
+					if (i + 1 < levels.size()) {
+						levels.get(i + 1).setUnlocked(true);
 					}
 				}
 			}
