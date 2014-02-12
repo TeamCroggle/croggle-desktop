@@ -1,0 +1,47 @@
+{
+	"de.croggle" : {
+		"levels" : [
+			{
+			"type" : "color edit" ,
+			"description" : "Erstes Tutorial Level in dem das Einfärben von Spielelementen erklärt wird." ,
+			"design" : "" ,
+			"animation" : ["tutorial/coloring.png"
+			],
+			"abort simulation after" : 111 ,
+			"hints" : [ "hints/0000"
+			],
+			"data" : {
+				"initial constellation" : {
+					"families" : [
+						{
+							"type" : "egg" ,
+							"movable" : false ,
+							"removable" : false ,
+							"color" : -1 ,
+							"recolorable" : true
+
+						}
+					]
+				},
+				"objective" : {
+					"families" : [
+						{
+							"type" : "egg" ,
+							"movable" : false ,
+							"removable" : false ,
+							"color" : 5 ,
+							"recolorable" : false
+						}
+					]
+				},
+
+				"user colors" : [
+					0, 1, 2, 3, 5, 7
+				],
+				"blocked colors" : [
+				]
+			}				
+			}
+		]
+	}
+}

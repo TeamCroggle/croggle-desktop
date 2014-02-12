@@ -1,0 +1,77 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <string name="app_name">Croggle</string>
+    <string name="app_credits">
+        Croggle\n
+        \n
+        Created by \n
+		Lukas Böhm, Tobias Hornberger, Jonas Mehlhaus, \n
+		Iris Mehrbrodt, Vincent Schüßler, Lena Winter\n
+		\n
+		After an idea by Bret Victor\n
+		http://worrydream.com</string>
+	<string name="ingame_menu_continue">Continue</string>
+	<string name="ingame_menu_reset">Reset</string>
+	<string name="ingame_menu_main_menu">Main Menu</string>
+	<string name="ingame_menu_settings">Settings</string>
+	<string name="ingame_menu_level_overview">Level Overview</string>
+	<string name="ingame_menu_achievements">Achievements</string>
+    <string name="achievement_minutes_played">minutes played</string>
+    <string name="achievement_hours_played">hours played</string>
+    <string name="achievement_time_final">:(  you played this game for way too long</string>
+    <string name="achievement_alligators_placed">alligators placed</string>
+    <string name="achievement_alligators_placed_final">wow. You placed a lot of alligators.</string>
+    <string name="achievement_alligators_placed_per_level">alligators placed within one level</string>
+    <string name="achievement_alligator_placed_per_level_final">Wow. you placed a lot of alligators within one level.</string>
+    <string name="achievement_alligators_eaten">alligators eaten</string>
+    <string name="achievement_alligators_eaten_final">Wow. You ate a lot of alligators.</string>
+    <string name="achievement_alligators_eaten_per_level">alligators eaten within one level</string>
+    <string name="achievement_hints_used_per_level">no hint used within a level</string>
+    <string name="achievement_alligators_eaten_per_level_final">Wow. You ate a lot of alligators within one level.</string>
+    <string name="achievement_level_completed">levels solved</string>
+    <string name="screen_title_achievements">Achievements</string>
+    <string name="screen_title_set_avatar">Choose your avatar</string>
+    <string name="screen_title_set_name">What\'s your name?</string>
+    <string name="warning_max_profiles">You reached the max. amount of profiles.</string>
+    <string name="settings_title_gameplay">Gameplay</string>
+    <string name="settings_title_zoom">Zoom buttons enabled</string>
+    <string name="settings_title_color_blindness">Color blindness mode</string>
+    <string name="settings_title_sound">Sound</string>
+    <string name="settings_title_music">Music</string>
+    <string name="settings_title_effects">Effects</string>
+    <string name="settings_title_profile">Profile</string>
+    <string name="settings_button_edit_profile">Edit profile</string>
+    <string name="warning_no_profile_selected">You have to select a profile first!</string>
+    <string name="title_edit_profile">What do you want to do?</string>
+    <string name="edit_profile_button_rename">Rename</string>
+    <string name="edit_profile_button_change_avatar">Change avatar</string>
+    <string name="edit_profile_button_delete">Delete profile</string>
+    <string name="edit_profile_button_nothing">Nothing</string>
+    <string name="edit_profile_delete_confirmation">Are you sure you want to delete the profile with the name %s?</string>
+    <string name="statistic_screen_selected_profile">Selected profile : </string>
+    <string name="statistic_screen_no_users">No users available yet</string>
+    <string name="statistic_tab_actions">ACTIONS</string>
+    <string name="statistic_tab_progress">PROGRESS</string>
+    <string name="statistic_tab_game">GAME</string>
+    <string name="statistic_label_action_recolorings">Recolorings done : </string>
+    <string name="statistic_label_action_resets">Resets used : </string>
+    <string name="statistic_label_action_hints">Hints used : </string>
+    <string name="statistic_label_progress_time">Time played : </string>
+    <string name="statistic_label_progress_packages">Packages complete : </string>
+    <string name="statistic_label_progress_levels">Levels complete : </string>
+    <string name="statistic_label_game_alligators_eaten">Alligators eaten : </string>
+    <string name="statistic_label_game_alligators_placed">Alligators placed : </string>
+    <string name="statistic_label_game_eggs_hatched">Eggs hatched : </string>
+    <string name="statistic_label_game_eggs_placed">Eggs placed : </string>
+    <string name="title_new_achievement">You got a new achievement!</string>
+    <string name="button_ok">Okay</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="multiple_choice_dialog">Choose exactly one of the possible answers.</string>
+    <string name="invalid_board_dialog">Please pay attention to the rule that every alligator has to have children and dye all alligators and eggs.</string>
+    <string name="achievement_dialog_standard">to unlock this,  you have to reach \n</string>
+    <string name="achievement_dialog_last">the final stage:\n</string>
+    <string name="level_solved">Yeah! You solved the level!</string>
+    <string name="level_failed">Level failed.</string>
+
+</resources>
