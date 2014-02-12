@@ -13,4 +13,6 @@ public interface Database {
 	int delete(String table, String whereClause, String[] whereArgs);
 
 	long insert(String table, String nullColumnHack, ContentValues values);
+
+	long queryForLong(String selection, String[] args);
 }

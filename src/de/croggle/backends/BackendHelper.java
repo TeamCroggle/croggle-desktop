@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 
+import de.croggle.backends.desktop.DesktopContentValues;
+import de.croggle.backends.desktop.DesktopDatabaseHelper;
 import de.croggle.backends.sqlite.ContentValues;
 import de.croggle.backends.sqlite.DatabaseHelper;
 
@@ -91,10 +93,10 @@ public class BackendHelper {
 	}
 
 	public static DatabaseHelper getNewDatabaseHelper() {
-
+		return new DesktopDatabaseHelper();
 	}
 
 	public static ContentValues getNewContentValues() {
-
+		return new DesktopContentValues();
 	}
 }
