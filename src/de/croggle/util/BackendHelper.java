@@ -82,4 +82,8 @@ public class BackendHelper {
 		}
 		return false;
 	}
+
+	public Object getContext() {
+		return Gdx.app;
+	}
 }
