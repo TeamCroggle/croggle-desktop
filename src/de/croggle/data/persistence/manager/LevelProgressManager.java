@@ -1,9 +1,5 @@
 package de.croggle.data.persistence.manager;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
 import de.croggle.data.persistence.LevelProgress;
 
 /**
@@ -35,7 +31,6 @@ public class LevelProgressManager extends TableManager {
 	 */
 	static final String KEY_CURRENT_BOARD = "currentBoard";
 
-
 	/**
 	 * Name of the column that stores the amount of used time.
 	 */
@@ -52,21 +47,10 @@ public class LevelProgressManager extends TableManager {
 	static final String CREATE_TABLE = "create table " + TABLE_NAME + "("
 			+ KEY_PROFILE_NAME + " text not null, " + KEY_LEVEL_ID
 			+ " integer, " + KEY_SOLVED + " boolean, " + KEY_CURRENT_BOARD
-			+ " text not null, "  + KEY_USED_TIME + " int, " + "FOREIGN KEY("
+			+ " text not null, " + KEY_USED_TIME + " int, " + "FOREIGN KEY("
 			+ KEY_PROFILE_NAME + ") REFERENCES " + ProfileManager.TABLE_NAME
 			+ "(" + ProfileManager.KEY_PROFILE_NAME
 			+ ") ON UPDATE CASCADE ON DELETE CASCADE )";
-
-	/**
-	 * Creates a new LevelProgressManager which manages the level progress
-	 * table.
-	 * 
-	 * @param context
-	 *            the context used for accessing the database
-	 */
-	LevelProgressManager(Context context) {
-		super(context);
-	}
 
 	/**
 	 * Adds a new level progress to the table.
@@ -149,7 +133,7 @@ public class LevelProgressManager extends TableManager {
 
 	}
 
-
+	@Override
 	void clearTable() {
 		database.execSQL("delete from " + TABLE_NAME);
 	}

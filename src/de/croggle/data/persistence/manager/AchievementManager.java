@@ -45,17 +45,6 @@ public class AchievementManager extends TableManager {
 			+ ") ON UPDATE CASCADE ON DELETE CASCADE )";;
 
 	/**
-	 * Creates a new AchievementManager used for managing the achievement table.
-	 * 
-	 * @param context
-	 *            the context used for accessing the database
-	 */
-	AchievementManager(Context context) {
-		super(context);
-
-	}
-
-	/**
 	 * Searches the table for a unlocked achievement that belongs to the profile
 	 * identified by the profile name and whose achievement ID matches the
 	 * achievement ID stored in achievement. The values of the found achievement

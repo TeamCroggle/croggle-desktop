@@ -1,6 +1,6 @@
 package de.croggle.data.persistence.manager;
 
-public interface DataBase {
+public interface Database {
 	void execSQL(String sql);
 
 	boolean isReadOnly();

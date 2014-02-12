@@ -1,9 +1,5 @@
 package de.croggle.data.persistence.manager;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
 import de.croggle.data.persistence.Statistic;
 
 /**
@@ -93,8 +89,7 @@ public class StatisticManager extends TableManager {
 	 * @param context
 	 *            used for accessing the database
 	 */
-	StatisticManager(Context context) {
-		super(context);
+	StatisticManager() {
 
 	}
 
@@ -200,8 +195,7 @@ public class StatisticManager extends TableManager {
 				new String[] { profileName });
 	}
 
-
-
+	@Override
 	void clearTable() {
 		database.execSQL("delete from " + TABLE_NAME);
 	}

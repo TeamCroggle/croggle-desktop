@@ -3,10 +3,6 @@ package de.croggle.data.persistence.manager;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
 import de.croggle.game.profile.Profile;
 
 /**
@@ -37,17 +33,6 @@ public class ProfileManager extends TableManager {
 	static final String CREATE_TABLE = "create table " + TABLE_NAME + "("
 			+ KEY_PROFILE_NAME + " text not null primary key, "
 			+ KEY_PICTUREPATH + " text not null" + ")";
-
-	/**
-	 * Creates a new ProfileManager which manages the profile table.
-	 * 
-	 * @param context
-	 *            the context used for accessing the database
-	 */
-	ProfileManager(Context context) {
-		super(context);
-
-	}
 
 	/**
 	 * Adds a new profile to the table.
@@ -167,6 +152,7 @@ public class ProfileManager extends TableManager {
 		return false;
 	}
 
+	@Override
 	void clearTable() {
 		database.execSQL("delete from " + TABLE_NAME);
 	}

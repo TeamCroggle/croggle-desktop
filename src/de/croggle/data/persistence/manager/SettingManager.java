@@ -1,9 +1,5 @@
 package de.croggle.data.persistence.manager;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
 import de.croggle.data.persistence.Setting;
 
 /**
@@ -55,17 +51,6 @@ public class SettingManager extends TableManager {
 			+ "FOREIGN KEY(" + KEY_PROFILE_NAME + ") REFERENCES "
 			+ ProfileManager.TABLE_NAME + "(" + ProfileManager.KEY_PROFILE_NAME
 			+ ") ON UPDATE CASCADE ON DELETE CASCADE )";
-
-	/**
-	 * Creates a new SettingManager which manages the setting table.
-	 * 
-	 * @param context
-	 *            used for accessing the database
-	 */
-	SettingManager(Context context) {
-		super(context);
-
-	}
 
 	/**
 	 * Adds a new setting to the table.
@@ -143,7 +128,7 @@ public class SettingManager extends TableManager {
 				new String[] { profileName });
 	}
 
-
+	@Override
 	void clearTable() {
 		database.execSQL("delete from " + TABLE_NAME);
 	}

@@ -55,12 +55,11 @@ public class PersistenceManager {
 	 *            the backwards reference to the central game object
 	 */
 	public PersistenceManager(AlligatorApp game) {
-		Context context = game.getContext();
-		profileManager = new ProfileManager(context);
-		settingManager = new SettingManager(context);
-		statisticManager = new StatisticManager(context);
-		levelProgressManager = new LevelProgressManager(context);
-		achievementManager = new AchievementManager(context);
+		profileManager = new ProfileManager();
+		settingManager = new SettingManager();
+		statisticManager = new StatisticManager();
+		levelProgressManager = new LevelProgressManager();
+		achievementManager = new AchievementManager();
 		this.game = game;
 
 	}
