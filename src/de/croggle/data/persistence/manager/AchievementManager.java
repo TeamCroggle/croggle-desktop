@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.math.Vector2;
 
 import de.croggle.game.achievement.Achievement;
+import de.croggle.util.BackendHelper;
 
 /**
  * A concrete table manager which is responsible for managing the SQLite table
@@ -58,7 +59,7 @@ public class AchievementManager extends TableManager {
 	 */
 	void updateUnlockedAchievement(String profileName, Achievement achievement) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_PROFILE_NAME, profileName);
 		values.put(KEY_ACHIEVEMENT_INDEX, achievement.getIndex());
@@ -79,7 +80,7 @@ public class AchievementManager extends TableManager {
 	 */
 	void addUnlockedAchievement(String profileName, Achievement achievement) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_PROFILE_NAME, profileName);
 		values.put(KEY_ACHIEVEMENT_ID, achievement.getId());

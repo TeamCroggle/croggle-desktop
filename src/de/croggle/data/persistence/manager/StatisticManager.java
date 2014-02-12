@@ -1,6 +1,7 @@
 package de.croggle.data.persistence.manager;
 
 import de.croggle.data.persistence.Statistic;
+import de.croggle.util.BackendHelper;
 
 /**
  * A concrete table manager is responsible for managing the SQLite table that
@@ -103,7 +104,7 @@ public class StatisticManager extends TableManager {
 	 */
 	void addStatistic(String profileName, Statistic statistic) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_PROFILE_NAME, profileName);
 		values.put(KEY_PLAYTIME, statistic.getPlaytime());
@@ -177,7 +178,7 @@ public class StatisticManager extends TableManager {
 	 */
 	void editStatistic(String profileName, Statistic statistic) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_PROFILE_NAME, profileName);
 		values.put(KEY_PLAYTIME, statistic.getPlaytime());

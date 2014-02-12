@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.croggle.game.profile.Profile;
+import de.croggle.util.BackendHelper;
 
 /**
  * A concrete table manager which is responsible for managing the SQLite table
@@ -41,7 +42,7 @@ public class ProfileManager extends TableManager {
 	 *            contains the values to be stored in the table
 	 */
 	void addProfile(Profile profile) {
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_PROFILE_NAME, profile.getName());
 		values.put(KEY_PICTUREPATH, profile.getPicturePath());
@@ -87,7 +88,7 @@ public class ProfileManager extends TableManager {
 	 */
 	void editProfile(String profileName, Profile profile) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 		values.put(KEY_PROFILE_NAME, profile.getName());
 		values.put(KEY_PICTUREPATH, profile.getPicturePath());
 

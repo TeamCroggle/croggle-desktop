@@ -1,6 +1,7 @@
 package de.croggle.data.persistence.manager;
 
 import de.croggle.data.persistence.LevelProgress;
+import de.croggle.util.BackendHelper;
 
 /**
  * A concrete table manager which is responsible for managing the SQLite table
@@ -63,7 +64,7 @@ public class LevelProgressManager extends TableManager {
 	 */
 	void addLevelProgress(String profileName, LevelProgress levelProgress) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_PROFILE_NAME, profileName);
 		values.put(KEY_LEVEL_ID, levelProgress.getLevelId());
@@ -120,7 +121,7 @@ public class LevelProgressManager extends TableManager {
 	 */
 	void updateLevelProgress(String profileName, LevelProgress levelProgress) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_SOLVED, levelProgress.isSolved());
 		values.put(KEY_CURRENT_BOARD, levelProgress.getCurrentBoard());

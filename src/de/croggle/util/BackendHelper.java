@@ -6,6 +6,9 @@ import java.lang.reflect.Method;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 
+import de.croggle.data.persistence.manager.ContentValues;
+import de.croggle.data.persistence.manager.DatabaseHelper;
+
 /**
  * A class to help with additional capabilities of the different backends,
  * without directly referencing them (using reflection). By doing so, the helper
@@ -83,7 +86,15 @@ public class BackendHelper {
 		return false;
 	}
 
-	public Object getContext() {
+	public static Object getContext() {
 		return Gdx.app;
+	}
+
+	public static DatabaseHelper getNewDatabaseHelper() {
+
+	}
+
+	public static ContentValues getNewContentValues() {
+
 	}
 }

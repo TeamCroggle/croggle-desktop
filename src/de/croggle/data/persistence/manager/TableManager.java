@@ -1,5 +1,7 @@
 package de.croggle.data.persistence.manager;
 
+import de.croggle.util.BackendHelper;
+
 /**
  * An abstract superclass for all classes which manage tables.
  * 
@@ -26,7 +28,7 @@ public abstract class TableManager {
 	 *            the database
 	 */
 	TableManager() {
-		databaseHelper = new DatabaseHelper();
+		databaseHelper = BackendHelper.getNewDatabaseHelper();
 	}
 
 	/**

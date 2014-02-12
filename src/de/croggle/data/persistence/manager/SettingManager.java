@@ -1,6 +1,7 @@
 package de.croggle.data.persistence.manager;
 
 import de.croggle.data.persistence.Setting;
+import de.croggle.util.BackendHelper;
 
 /**
  * A concrete table manager which is responsible for managing the SQLite table
@@ -61,7 +62,7 @@ public class SettingManager extends TableManager {
 	 *            contains the values to be stored in the table
 	 */
 	void addSetting(String profileName, Setting setting) {
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_PROFILE_NAME, profileName);
 		values.put(KEY_VOLUME_MUSIC, setting.getVolumeMusic());
@@ -117,7 +118,7 @@ public class SettingManager extends TableManager {
 	 */
 	void editSetting(String profileName, Setting setting) {
 
-		ContentValues values = new ContentValues();
+		ContentValues values = BackendHelper.getNewContentValues();
 
 		values.put(KEY_VOLUME_MUSIC, setting.getVolumeMusic());
 		values.put(KEY_VOLUME_EFFECTS, setting.getVolumeEffects());
