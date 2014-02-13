@@ -21,7 +21,7 @@ public class DesktopDatabase implements Database {
 	@Override
 	public Cursor rawQuery(String selection, String[] args) {
 		// TODO Auto-generated method stub
-		return null;
+		return new DesktopCursor();
 	}
 
 	@Override

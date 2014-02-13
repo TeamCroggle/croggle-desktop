@@ -20,7 +20,7 @@ public class DesktopDatabaseHelper implements DatabaseHelper {
 	@Override
 	public Database getWritableDatabase() {
 		// TODO Auto-generated method stub
-		return null;
+		return new DesktopDatabase();
 	}
 
 	@Override

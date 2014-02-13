@@ -62,7 +62,6 @@ public abstract class TableManager {
 	/**
 	 * Clears the table.
 	 */
-
 	// NEW
 	abstract void clearTable();
 

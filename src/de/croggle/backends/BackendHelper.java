@@ -99,4 +99,8 @@ public class BackendHelper {
 	public static ContentValues getNewContentValues() {
 		return new DesktopContentValues();
 	}
+
+	public static String getAssetDirPath() {
+		return "./assets/";
+	}
 }
