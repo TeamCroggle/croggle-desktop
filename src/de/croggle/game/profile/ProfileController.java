@@ -73,7 +73,7 @@ public class ProfileController {
 			throws IllegalArgumentException {
 
 		PersistenceManager pm = game.getPersistenceManager();
-		if (!pm.isNameUsed(profileName)) {
+		if (!pm.isNameUsed(profileName) && !AlligatorApp.DEBUG) {
 			throw new IllegalArgumentException();
 		} else {
 			currentProfile = pm.getProfile(profileName);

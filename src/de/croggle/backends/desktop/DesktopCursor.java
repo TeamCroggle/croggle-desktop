@@ -7,7 +7,7 @@ public class DesktopCursor implements Cursor {
 	@Override
 	public boolean moveToFirst() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
