@@ -101,6 +101,6 @@ public class BackendHelper {
 	}
 
 	public static String getAssetDirPath() {
-		return "./assets/";
+		return "./croggle/assets/";
 	}
 }

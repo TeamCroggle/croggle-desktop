@@ -6,18 +6,6 @@ import de.croggle.backends.sqlite.DatabaseHelper;
 public class DesktopDatabaseHelper implements DatabaseHelper {
 
 	@Override
-	public void onCreate(Database db) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onUpgrade(Database db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public Database getWritableDatabase() {
 		// TODO Auto-generated method stub
 		return new DesktopDatabase();

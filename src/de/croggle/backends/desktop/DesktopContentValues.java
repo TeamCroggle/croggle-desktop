@@ -28,4 +28,10 @@ public class DesktopContentValues implements ContentValues {
 
 	}
 
+	@Override
+	public Object get() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
