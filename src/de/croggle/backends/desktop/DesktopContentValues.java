@@ -6,7 +6,7 @@ import de.croggle.backends.sqlite.ContentValues;
 
 public class DesktopContentValues implements ContentValues {
 
-	private final HashMap<String, Object> values;
+	final HashMap<String, Object> values;
 
 	public DesktopContentValues() {
 		values = new HashMap<String, Object>();
@@ -31,10 +31,4 @@ public class DesktopContentValues implements ContentValues {
 	public void put(String key, boolean value) {
 		values.put(key, value);
 	}
-
-	@Override
-	public Object get() {
-		return values;
-	}
-
 }
