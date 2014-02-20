@@ -19,26 +19,12 @@ public class DesktopCursor implements Cursor {
 			if (cursor.isBeforeFirst()) {
 				return cursor.next();
 			} else {
-				// Desktop backend does not support moving backward
-				throw new SQLException();
+				return cursor.next();
 			}
 		} catch (java.sql.SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
 		}
-		/*
-		 * Not implemeted due to obvious sqlite restrictions. See for example
-		 * http
-		 * ://stackoverflow.com/questions/20066635/using-rsnext-but-got-type-
-		 * foward-only-in-sqlite
-		 */
-		// try {
-		// return cursor.first();
-		// } catch (java.sql.SQLException ex) {
-		// ex.printStackTrace();
-		// throw new SQLException();
-		// }
-
 	}
 
 	@Override

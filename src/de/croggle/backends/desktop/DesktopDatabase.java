@@ -74,7 +74,12 @@ public class DesktopDatabase implements Database {
 			while (entriesIter.hasNext()) {
 				Map.Entry<String, Object> entry = entriesIter.next();
 				sql.append(entry.getKey());
-				sql.append("=?");
+				sql.append("=");
+				if (entry.getValue() instanceof Number) {
+					sql.append(entry.getValue());
+				} else {
+					sql.append("'" + entry.getValue() + "'");
+				}
 				if (entriesIter.hasNext()) {
 					sql.append(", ");
 				}
@@ -114,6 +119,7 @@ public class DesktopDatabase implements Database {
 			int numChangedRows = statement.getUpdateCount();
 			return numChangedRows;
 		} catch (java.sql.SQLException ex) {
+			ex.printStackTrace();
 			throw new SQLException();
 		}
 	}
