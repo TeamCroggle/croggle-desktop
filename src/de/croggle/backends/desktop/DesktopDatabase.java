@@ -1,6 +1,7 @@
 package de.croggle.backends.desktop;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Iterator;
@@ -74,12 +75,7 @@ public class DesktopDatabase implements Database {
 			while (entriesIter.hasNext()) {
 				Map.Entry<String, Object> entry = entriesIter.next();
 				sql.append(entry.getKey());
-				sql.append("=");
-				if (entry.getValue() instanceof Number) {
-					sql.append(entry.getValue());
-				} else {
-					sql.append("'" + entry.getValue() + "'");
-				}
+				sql.append("=?");
 				if (entriesIter.hasNext()) {
 					sql.append(", ");
 				}
@@ -90,31 +86,27 @@ public class DesktopDatabase implements Database {
 				sql.append(whereClause);
 			}
 
-			Statement statement = null;
-			statement = c.createStatement();
+			PreparedStatement statement = c.prepareStatement(sql.toString());
 
-			// TODO
-			// // Bind the values
-			// int size = entrySet.size();
-			// entriesIter = entrySet.iterator();
-			// int bindArg = 1;
-			// for (int i = 0; i < size; i++) {
-			// Map.Entry<String, Object> entry = entriesIter.next();
-			// DatabaseUtils.bindObjectToProgram(statement, bindArg,
-			// entry.getValue());
-			// bindArg++;
-			// }
+			int size = entrySet.size();
+			entriesIter = entrySet.iterator();
+			int bindArg = 1;
+			for (int i = 0; i < size; i++) {
+				Map.Entry<String, Object> entry = entriesIter.next();
+				bindObjectToProgram(statement, bindArg, entry.getValue());
+				bindArg++;
+			}
 
-			// if (whereArgs != null) {
-			// size = whereArgs.length;
-			// for (int i = 0; i < size; i++) {
-			// statement.bindString(bindArg, whereArgs[i]);
-			// bindArg++;
-			// }
-			// }
+			if (whereArgs != null) {
+				size = whereArgs.length;
+				for (int i = 0; i < size; i++) {
+					statement.setString(bindArg, whereArgs[i]);
+					bindArg++;
+				}
+			}
 
 			// Run the program and then cleanup
-			statement.executeUpdate(sql.toString());
+			statement.executeUpdate();
 			statement.close();
 			int numChangedRows = statement.getUpdateCount();
 			return numChangedRows;
@@ -127,18 +119,16 @@ public class DesktopDatabase implements Database {
 	@Override
 	public int delete(String table, String whereClause, String[] whereArgs) {
 		try {
-			Statement statement = c.createStatement();
 			String sql = "DELETE FROM " + table
 					+ (!whereClause.isEmpty() ? " WHERE " + whereClause : "");
-			// TODO
-			// if (whereArgs != null) {
-			// int numArgs = whereArgs.length;
-			// for (int i = 0; i < numArgs; i++) {
-			// DatabaseUtils.bindObjectToProgram(statement, i + 1,
-			// whereArgs[i]);
-			// }
-			// }
-			statement.executeUpdate(sql);
+			PreparedStatement statement = c.prepareStatement(sql);
+			if (whereArgs != null) {
+				int numArgs = whereArgs.length;
+				for (int i = 0; i < numArgs; i++) {
+					statement.setString(i + 1, whereArgs[i]);
+				}
+			}
+			statement.execute();
 			statement.close();
 			return statement.getUpdateCount();
 		} catch (java.sql.SQLException ex) {
@@ -149,7 +139,7 @@ public class DesktopDatabase implements Database {
 	@Override
 	public long insert(String table, String nullColumnHack,
 			ContentValues initialValues) {
-		// Most code result of a grand theft from
+		// Most code result of a grand theft from AOSP
 		/*
 		 * http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.
 		 * android/android/
@@ -181,10 +171,7 @@ public class DesktopDatabase implements Database {
 				needSeparator = true;
 				Map.Entry<String, Object> entry = entriesIter.next();
 				sql.append(entry.getKey());
-				// originally:
-				// values.append('?');
-				// but we don't bind values correctly. TODO
-				values.append("'" + entry.getValue() + "'");
+				values.append('?');
 			}
 
 			sql.append(')');
@@ -197,24 +184,21 @@ public class DesktopDatabase implements Database {
 		sql.append(values);
 		sql.append(");");
 
-		Statement statement = null;
 		try {
-			statement = c.createStatement();
-			// TODO no idea what this was for
+			PreparedStatement statement = c.prepareStatement(sql.toString());
 			// Bind the values
-			// if (entrySet != null) {
-			// int size = entrySet.size();
-			// Iterator<Map.Entry<String, Object>> entriesIter =
-			// entrySet.iterator();
-			// for (int i = 0; i < size; i++) {
-			// Map.Entry<String, Object> entry = entriesIter.next();
-			// DatabaseUtils.bindObjectToProgram(statement, i + 1,
-			// entry.getValue());
-			// }
-			// }
+			if (entrySet != null) {
+				int size = entrySet.size();
+				Iterator<Map.Entry<String, Object>> entriesIter = entrySet
+						.iterator();
+				for (int i = 0; i < size; i++) {
+					Map.Entry<String, Object> entry = entriesIter.next();
+					bindObjectToProgram(statement, i + 1, entry.getValue());
+				}
+			}
 
 			// Run the program and then cleanup
-			return statement.executeUpdate(sql.toString());
+			return statement.executeUpdate();
 		} catch (java.sql.SQLException ex) {
 			ex.printStackTrace();
 			throw new SQLException();
@@ -232,4 +216,31 @@ public class DesktopDatabase implements Database {
 		}
 	}
 
+	private static void bindObjectToProgram(PreparedStatement prog, int index,
+			Object value) {
+		try {
+			if (value == null) {
+				prog.setNull(index, java.sql.Types.NULL);
+			} else if (value instanceof Double || value instanceof Float) {
+				prog.setDouble(index, ((Number) value).doubleValue());
+			} else if (value instanceof Number) {
+				prog.setLong(index, ((Number) value).longValue());
+			} else if (value instanceof Boolean) {
+				Boolean bool = (Boolean) value;
+				if (bool) {
+					prog.setLong(index, 1);
+				} else {
+					prog.setLong(index, 0);
+				}
+			}
+			// else if (value instanceof byte[]) {
+			// prog.setBlob(index, new (byte[]) value);
+			// }
+			else {
+				prog.setString(index, value.toString());
+			}
+		} catch (java.sql.SQLException e) {
+			throw new SQLException();
+		}
+	}
 }
