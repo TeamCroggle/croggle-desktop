@@ -175,7 +175,10 @@ public class DesktopDatabase implements Database {
 				needSeparator = true;
 				Map.Entry<String, Object> entry = entriesIter.next();
 				sql.append(entry.getKey());
-				values.append('?');
+				// originally:
+				// values.append('?');
+				// but we don't bind values correctly. TODO
+				values.append("'" + entry.getValue() + "'");
 			}
 
 			sql.append(')');

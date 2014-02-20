@@ -16,7 +16,12 @@ public class DesktopCursor implements Cursor {
 	@Override
 	public boolean moveToFirst() {
 		try {
-			return cursor.isBeforeFirst();
+			if (cursor.isBeforeFirst()) {
+				return cursor.next();
+			} else {
+				// Desktop backend does not support moving backward
+				throw new SQLException();
+			}
 		} catch (java.sql.SQLException e) {
 			e.printStackTrace();
 			throw new SQLException();
