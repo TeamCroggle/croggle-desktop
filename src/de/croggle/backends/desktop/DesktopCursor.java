@@ -7,15 +7,33 @@ import de.croggle.backends.sqlite.SQLException;
 
 public class DesktopCursor implements Cursor {
 
-	ResultSet cursor;
+	final ResultSet cursor;
+
+	public DesktopCursor(ResultSet r) {
+		cursor = r;
+	}
 
 	@Override
 	public boolean moveToFirst() {
 		try {
-			return cursor.first();
-		} catch (java.sql.SQLException ex) {
+			return cursor.isBeforeFirst();
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
 			throw new SQLException();
 		}
+		/*
+		 * Not implemeted due to obvious sqlite restrictions. See for example
+		 * http
+		 * ://stackoverflow.com/questions/20066635/using-rsnext-but-got-type-
+		 * foward-only-in-sqlite
+		 */
+		// try {
+		// return cursor.first();
+		// } catch (java.sql.SQLException ex) {
+		// ex.printStackTrace();
+		// throw new SQLException();
+		// }
+
 	}
 
 	@Override
@@ -32,6 +50,7 @@ public class DesktopCursor implements Cursor {
 		try {
 			return cursor.findColumn(name) - 1;
 		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
 			throw new SQLException();
 		}
 	}

@@ -13,6 +13,6 @@
 	<classpathentry kind="lib" path="libs/gdx-freetype-natives.jar"/>
 	<classpathentry kind="lib" path="croggle/libs/gdx-freetype.jar" sourcepath="croggle/libs/source/gdx-freetype-sources.jar"/>
 	<classpathentry kind="lib" path="croggle/libs/gdx.jar" sourcepath="croggle/libs/source/gdx-sources.jar"/>
-	<classpathentry kind="lib" path="libs/sqlite-jdbc4-3.8.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.7.15-M1.jar" sourcepath="libs/sqlite-jdbc-3.7.15-M1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
