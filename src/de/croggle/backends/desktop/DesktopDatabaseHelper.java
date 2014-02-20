@@ -29,8 +29,10 @@ public class DesktopDatabaseHelper extends DatabaseHelper {
 				}
 				return db;
 			} catch (java.sql.SQLException e) {
+				e.printStackTrace();
 				throw new SQLException();
 			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 				throw new SQLException();
 			}
 		} else {

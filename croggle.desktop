@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Categories=Game;
+Icon=croggle/res/drawable-xhdpi/ic_launcher.png
+Exec=sh -c "./launch.sh"
+Name=Croggle
