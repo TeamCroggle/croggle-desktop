@@ -43,4 +43,8 @@ public class BackendHelper {
 	public static String getAssetDirPath() {
 		return "./croggle/assets/";
 	}
+
+	public static String getResourceDirPath() {
+		return "./croggle/res/";
+	}
 }
