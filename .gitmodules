@@ -1,3 +1,3 @@
 [submodule "croggle"]
 	path = croggle
-	url = git@github.com:TeamCroggle/croggle-base.git
+	url = https://github.com/TeamCroggle/croggle-base.git
