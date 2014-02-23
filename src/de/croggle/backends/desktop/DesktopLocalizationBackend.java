@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import de.croggle.backends.BackendHelper;
 import de.croggle.backends.LocalizationBackend;
+import de.croggle.util.StringUtils;
 
 public class DesktopLocalizationBackend implements LocalizationBackend {
 
@@ -55,8 +56,10 @@ public class DesktopLocalizationBackend implements LocalizationBackend {
 		for (int i = 0; i < stringElements.getLength(); i++) {
 			Node n = stringElements.item(i);
 			NamedNodeMap attrs = n.getAttributes();
-			strings.put(attrs.getNamedItem("name").getTextContent(),
-					n.getTextContent());
+			strings.put(
+					attrs.getNamedItem("name").getTextContent(),
+					StringUtils.unescape(n.getTextContent().replaceAll("\\n",
+							"")));
 		}
 	}
 
