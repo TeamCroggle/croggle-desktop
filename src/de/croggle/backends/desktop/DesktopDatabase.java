@@ -212,6 +212,7 @@ public class DesktopDatabase implements Database {
 			s.executeUpdate(sql);
 			return s.getResultSet().getLong(1);
 		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
 			throw new SQLException();
 		}
 	}
