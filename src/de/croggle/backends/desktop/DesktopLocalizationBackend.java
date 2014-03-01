@@ -15,7 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import de.croggle.backends.BackendHelper;
+import de.croggle.backends.DesktopBackendHelper;
 import de.croggle.backends.LocalizationBackend;
 import de.croggle.util.StringUtils;
 
@@ -67,10 +67,10 @@ public class DesktopLocalizationBackend implements LocalizationBackend {
 		if (appLocale == null) {
 			appLocale = getSystemLocale();
 		}
-		File valueFolder = new File(BackendHelper.getResourceDirPath()
+		File valueFolder = new File(DesktopBackendHelper.getResourceDirPath()
 				+ "values-" + appLocale.getLanguage());
 		if (!valueFolder.exists() || !valueFolder.isDirectory()) {
-			valueFolder = new File(BackendHelper.getResourceDirPath()
+			valueFolder = new File(DesktopBackendHelper.getResourceDirPath()
 					+ "values");
 			if (!valueFolder.exists() || !valueFolder.isDirectory()) {
 				System.err.println("Unable to find any values");

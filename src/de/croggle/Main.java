@@ -2,6 +2,8 @@ package de.croggle;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
+import de.croggle.backends.BackendHelper;
+import de.croggle.backends.DesktopBackendHelper;
 import de.croggle.backends.LocalizationBackend;
 import de.croggle.backends.desktop.DesktopLocalizationBackend;
 import de.croggle.data.LocalizationHelper;
@@ -15,6 +17,8 @@ public class Main extends LwjglApplication {
 	}
 
 	public static void main(String... args) {
+		BackendHelper backendHelper = new DesktopBackendHelper();
+		backendHelper.set();
 		LocalizationBackend locBack = new DesktopLocalizationBackend();
 		LocalizationHelper.setBackend(locBack);
 		new Main();

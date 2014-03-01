@@ -1,7 +1,5 @@
 package de.croggle.backends;
 
-import com.badlogic.gdx.Gdx;
-
 import de.croggle.backends.desktop.DesktopContentValues;
 import de.croggle.backends.desktop.DesktopDatabaseHelper;
 import de.croggle.backends.sqlite.ContentValues;
@@ -16,35 +14,36 @@ import de.croggle.backends.sqlite.DatabaseHelper;
  * The class's methods degrade gracefully, meaning that they silently ignore if
  * a certain functionality is currently unavailable.
  */
-public class BackendHelper {
-	private BackendHelper() {
-	}
-
-	public static boolean acquireWakeLock() {
-		return false;
-	}
-
-	public static boolean releaseWakeLock() {
-		return false;
-	}
-
-	public static Object getContext() {
-		return Gdx.app;
-	}
-
-	public static DatabaseHelper getNewDatabaseHelper() {
-		return new DesktopDatabaseHelper();
-	}
-
-	public static ContentValues getNewContentValues() {
-		return new DesktopContentValues();
-	}
-
-	public static String getAssetDirPath() {
-		return "./croggle/assets/";
+public class DesktopBackendHelper extends BackendHelper {
+	public DesktopBackendHelper() {
 	}
 
 	public static String getResourceDirPath() {
 		return "./croggle/res/";
+	}
+
+	@Override
+	protected boolean wakelockAcquire() {
+		return false;
+	}
+
+	@Override
+	protected boolean wakelockRelease() {
+		return false;
+	}
+
+	@Override
+	protected DatabaseHelper instantiateDatabaseHelper() {
+		return new DesktopDatabaseHelper();
+	}
+
+	@Override
+	protected ContentValues instantiateContentValues() {
+		return new DesktopContentValues();
+	}
+
+	@Override
+	protected String assetDirPath() {
+		return "./croggle/assets/";
 	}
 }
