@@ -155,12 +155,13 @@ public class StringUtils {
 			case '9':
 				die("illegal octal digit");
 				/* NOTREACHED */
+				break;
 
-				/*
-				 * may be 0 to 2 octal digits following this one so back up one
-				 * for fallthrough to next case; unread this digit and fall
-				 * through to next case.
-				 */
+			/*
+			 * may be 0 to 2 octal digits following this one so back up one for
+			 * fallthrough to next case; unread this digit and fall through to
+			 * next case.
+			 */
 			case '1':
 			case '2':
 			case '3':

@@ -32,7 +32,8 @@ public class TestHelper {
 			app = new AlligatorApp();
 		}
 		if (Gdx.app == null) {
-			HeadlessApplication headlessApp = new HeadlessApplication(app);
+			new HeadlessApplication(app); // will automatically register in
+											// Gdx.app
 		}
 		setupGdxAudio();
 		setupGdxGraphics();

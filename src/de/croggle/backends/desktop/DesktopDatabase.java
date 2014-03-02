@@ -55,38 +55,37 @@ public class DesktopDatabase implements Database {
 	@Override
 	public int update(String table, ContentValues values, String whereClause,
 			String[] whereArgs) {
+		if (values == null
+				|| ((DesktopContentValues) values).values.size() == 0) {
+			throw new IllegalArgumentException("Empty values");
+		}
+
+		StringBuilder sql = new StringBuilder(120);
+		sql.append("UPDATE ");
+
+		sql.append(table);
+		sql.append(" SET ");
+
+		Set<Map.Entry<String, Object>> entrySet = ((DesktopContentValues) values).values
+				.entrySet();
+		Iterator<Map.Entry<String, Object>> entriesIter = entrySet.iterator();
+
+		while (entriesIter.hasNext()) {
+			Map.Entry<String, Object> entry = entriesIter.next();
+			sql.append(entry.getKey());
+			sql.append("=?");
+			if (entriesIter.hasNext()) {
+				sql.append(", ");
+			}
+		}
+
+		if (!whereClause.isEmpty()) {
+			sql.append(" WHERE ");
+			sql.append(whereClause);
+		}
+		PreparedStatement statement = null;
 		try {
-			if (values == null
-					|| ((DesktopContentValues) values).values.size() == 0) {
-				throw new IllegalArgumentException("Empty values");
-			}
-
-			StringBuilder sql = new StringBuilder(120);
-			sql.append("UPDATE ");
-
-			sql.append(table);
-			sql.append(" SET ");
-
-			Set<Map.Entry<String, Object>> entrySet = ((DesktopContentValues) values).values
-					.entrySet();
-			Iterator<Map.Entry<String, Object>> entriesIter = entrySet
-					.iterator();
-
-			while (entriesIter.hasNext()) {
-				Map.Entry<String, Object> entry = entriesIter.next();
-				sql.append(entry.getKey());
-				sql.append("=?");
-				if (entriesIter.hasNext()) {
-					sql.append(", ");
-				}
-			}
-
-			if (!whereClause.isEmpty()) {
-				sql.append(" WHERE ");
-				sql.append(whereClause);
-			}
-
-			PreparedStatement statement = c.prepareStatement(sql.toString());
+			statement = c.prepareStatement(sql.toString());
 
 			int size = entrySet.size();
 			entriesIter = entrySet.iterator();
@@ -107,22 +106,32 @@ public class DesktopDatabase implements Database {
 
 			// Run the program and then cleanup
 			statement.executeUpdate();
-			statement.close();
 			int numChangedRows = statement.getUpdateCount();
 			return numChangedRows;
 		} catch (java.sql.SQLException ex) {
 			ex.printStackTrace();
 			throw new SQLException();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (java.sql.SQLException e) {
+					e.printStackTrace();
+					// TODO things are pretty serious here
+					throw new SQLException();
+				}
+			}
 		}
 	}
 
 	@Override
 	public int delete(String table, String whereClause, String[] whereArgs) {
-		String sql = new String();
+		String sql = "DELETE FROM " + table
+				+ (!whereClause.isEmpty() ? " WHERE " + whereClause : "");
+		PreparedStatement statement = null;
 		try {
-			sql = "DELETE FROM " + table
-					+ (!whereClause.isEmpty() ? " WHERE " + whereClause : "");
-			PreparedStatement statement = c.prepareStatement(sql);
+
+			statement = c.prepareStatement(sql);
 			if (whereArgs != null) {
 				int numArgs = whereArgs.length;
 				for (int i = 0; i < numArgs; i++) {
@@ -130,11 +139,20 @@ public class DesktopDatabase implements Database {
 				}
 			}
 			statement.execute();
-			statement.close();
 			return statement.getUpdateCount();
 		} catch (java.sql.SQLException ex) {
 			ex.printStackTrace();
 			throw new SQLException();
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (java.sql.SQLException e) {
+					e.printStackTrace();
+					// TODO things are pretty serious here
+					throw new SQLException();
+				}
+			}
 		}
 	}
 

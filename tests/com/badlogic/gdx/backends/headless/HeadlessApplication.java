@@ -94,10 +94,11 @@ public class HeadlessApplication implements Application {
 				try {
 					HeadlessApplication.this.mainLoop();
 				} catch (Throwable t) {
-					if (t instanceof RuntimeException)
+					if (t instanceof RuntimeException) {
 						throw (RuntimeException) t;
-					else
+					} else {
 						throw new GdxRuntimeException(t);
+					}
 				}
 			}
 		};
@@ -108,8 +109,6 @@ public class HeadlessApplication implements Application {
 		Array<LifecycleListener> lifecycleListeners = this.lifecycleListeners;
 
 		listener.create();
-
-		boolean wasActive = true;
 
 		// unlike LwjglApplication, a headless application will eat up CPU in
 		// this while loop

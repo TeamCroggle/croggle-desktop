@@ -16,14 +16,16 @@
 
 package com.badlogic.gdx.backends.headless;
 
+import java.io.File;
+
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
-import java.io.File;
-
-/** @author mzechner
- * @author Nathan Sweet */
+/**
+ * @author mzechner
+ * @author Nathan Sweet
+ */
 public final class HeadlessFileHandle extends FileHandle {
 	public HeadlessFileHandle(String fileName, FileType type) {
 		super(fileName, type);
@@ -33,29 +35,37 @@ public final class HeadlessFileHandle extends FileHandle {
 		super(file, type);
 	}
 
-	public FileHandle child (String name) {
-		if (file.getPath().length() == 0) return new HeadlessFileHandle(new File(name), type);
+	@Override
+	public FileHandle child(String name) {
+		if (file.getPath().length() == 0)
+			return new HeadlessFileHandle(new File(name), type);
 		return new HeadlessFileHandle(new File(file, name), type);
 	}
 
-	public FileHandle sibling (String name) {
-		if (file.getPath().length() == 0) throw new GdxRuntimeException("Cannot get the sibling of the root.");
+	@Override
+	public FileHandle sibling(String name) {
+		if (file.getPath().length() == 0)
+			throw new GdxRuntimeException("Cannot get the sibling of the root.");
 		return new HeadlessFileHandle(new File(file.getParent(), name), type);
 	}
 
-	public FileHandle parent () {
+	@Override
+	public FileHandle parent() {
 		File parent = file.getParentFile();
 		if (parent == null) {
-			if (type == FileType.Absolute)
+			if (type == FileType.Absolute) {
 				parent = new File("/");
-			else
+			} else {
 				parent = new File("");
+			}
 		}
 		return new HeadlessFileHandle(parent, type);
 	}
 
-	public File file () {
-		if (type == FileType.External) return new File(HeadlessFiles.externalPath, file.getPath());
+	@Override
+	public File file() {
+		if (type == FileType.External)
+			return new File(HeadlessFiles.externalPath, file.getPath());
 		return file;
 	}
 }
