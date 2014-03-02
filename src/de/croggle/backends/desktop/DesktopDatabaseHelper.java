@@ -12,22 +12,22 @@ import de.croggle.backends.sqlite.SQLException;
 
 public class DesktopDatabaseHelper extends DatabaseHelper {
 
-	protected DesktopDatabase db;
+	protected static int open = 0;
+	protected static DesktopDatabase database = null;
 
 	@Override
 	public Database getWritableDatabase() {
-		if (db == null) {
+		if (database == null) {
 			try {
 				Class.forName("org.sqlite.JDBC");
 				FileHandle dbFile = Gdx.files.internal(DATABASE_NAME + ".db");
 				boolean existing = dbFile.exists();
 				Connection c = DriverManager.getConnection("jdbc:sqlite:"
 						+ dbFile.path());
-				db = new DesktopDatabase(c);
+				database = new DesktopDatabase(c);
 				if (!existing) {
-					this.onCreate(db);
+					this.onCreate(database);
 				}
-				return db;
 			} catch (java.sql.SQLException e) {
 				e.printStackTrace();
 				throw new SQLException();
@@ -35,19 +35,25 @@ public class DesktopDatabaseHelper extends DatabaseHelper {
 				e.printStackTrace();
 				throw new SQLException();
 			}
-		} else {
-			return db;
 		}
+		open++;
+		return database;
 	}
 
 	@Override
 	public void close() {
 		try {
-			if (db != null) {
-				if (!db.c.isClosed()) {
-					db.c.close();
+			if (database == null || open <= 0) {
+				System.err
+						.println("Closing the database more often than opened");
+			} else {
+				open--;
+				if (open == 0) {
+					if (!database.c.isClosed()) {
+						database.c.close();
+					}
+					database = null;
 				}
-				db = null;
 			}
 		} catch (java.sql.SQLException e) {
 			throw new SQLException();

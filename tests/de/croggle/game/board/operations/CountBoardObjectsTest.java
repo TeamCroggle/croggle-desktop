@@ -1,13 +1,13 @@
 package de.croggle.game.board.operations;
 
+import junit.framework.TestCase;
 import de.croggle.game.Color;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
-import junit.framework.TestCase;
 
 public class CountBoardObjectsTest extends TestCase {
-	public void simpleTest() {
+	public void testSimple() {
 		Board b = new Board();
 		ColoredAlligator a1 = new ColoredAlligator(true, true, new Color(0),
 				true);

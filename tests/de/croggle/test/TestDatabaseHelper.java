@@ -15,18 +15,17 @@ public class TestDatabaseHelper extends DesktopDatabaseHelper {
 
 	@Override
 	public Database getWritableDatabase() {
-		if (db == null) {
+		if (database == null) {
 			try {
 				Class.forName("org.sqlite.JDBC");
 				FileHandle dbFile = Gdx.files.internal("test.db");
 				boolean existing = dbFile.exists();
 				Connection c = DriverManager.getConnection("jdbc:sqlite:"
 						+ dbFile.path());
-				db = new DesktopDatabase(c);
+				database = new DesktopDatabase(c);
 				if (!existing) {
-					this.onCreate(db);
+					this.onCreate(database);
 				}
-				return db;
 			} catch (java.sql.SQLException e) {
 				e.printStackTrace();
 				throw new SQLException();
@@ -34,8 +33,8 @@ public class TestDatabaseHelper extends DesktopDatabaseHelper {
 				e.printStackTrace();
 				throw new SQLException();
 			}
-		} else {
-			return db;
 		}
+		open++;
+		return database;
 	}
 }

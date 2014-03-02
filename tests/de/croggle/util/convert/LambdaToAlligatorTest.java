@@ -1,7 +1,7 @@
 package de.croggle.util.convert;
 
-import de.croggle.game.board.Board;
 import junit.framework.TestCase;
+import de.croggle.game.board.Board;
 
 /**
  * 
@@ -27,7 +27,6 @@ public class LambdaToAlligatorTest extends TestCase {
 		String expected = "(λx.λy.λz.λp.(x z (y z p))) (λz.λp.(z (z (z p)))) λz.λp.(z (z (z (z p))))";
 		Board b = LambdaToAlligator.convert(term);
 		String s = AlligatorToLambda.convert(b);
-		System.out.println(s);
 		assertEquals(expected, s);
 	}
 

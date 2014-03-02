@@ -118,8 +118,9 @@ public class DesktopDatabase implements Database {
 
 	@Override
 	public int delete(String table, String whereClause, String[] whereArgs) {
+		String sql = new String();
 		try {
-			String sql = "DELETE FROM " + table
+			sql = "DELETE FROM " + table
 					+ (!whereClause.isEmpty() ? " WHERE " + whereClause : "");
 			PreparedStatement statement = c.prepareStatement(sql);
 			if (whereArgs != null) {
@@ -132,6 +133,7 @@ public class DesktopDatabase implements Database {
 			statement.close();
 			return statement.getUpdateCount();
 		} catch (java.sql.SQLException ex) {
+			ex.printStackTrace();
 			throw new SQLException();
 		}
 	}
@@ -209,7 +211,7 @@ public class DesktopDatabase implements Database {
 	public long queryForLong(String sql, String[] columnNames) {
 		try {
 			Statement s = c.createStatement();
-			s.executeUpdate(sql);
+			s.execute(sql);
 			return s.getResultSet().getLong(1);
 		} catch (java.sql.SQLException e) {
 			e.printStackTrace();

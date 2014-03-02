@@ -1,10 +1,10 @@
 package de.croggle.util.convert;
 
+import junit.framework.TestCase;
 import de.croggle.game.Color;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
-import junit.framework.TestCase;
 
 public class AlligatorToJsonTest extends TestCase {
 
@@ -37,7 +37,6 @@ public class AlligatorToJsonTest extends TestCase {
 				+ "\t\t\t\"movable\" : true,\n"
 				+ "\t\t\t\"removable\" : true,\n"
 				+ "\t\t\t\"recolorable\" : true\n" + "\t\t}\n\t]\n" + "}\n";
-		System.out.println(expected);
 		assertEquals(expected, AlligatorToJson.convert(b));
 	}
 
