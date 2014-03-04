@@ -3,18 +3,18 @@ package de.croggle.game.level;
 import java.util.List;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import de.croggle.AlligatorApp;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class LoadPackageTest extends TestCase {
+public class LoadPackageTest extends PlatformTestCase {
 
 	AlligatorApp app;
 
 	@Override
 	protected void setUp() {
-		TestHelper.setupAll();
-		app = TestHelper.getApp();
+		TestHelper.setupAll(this);
+		app = TestHelper.getApp(this);
 	}
 
 	public void testLoading() {

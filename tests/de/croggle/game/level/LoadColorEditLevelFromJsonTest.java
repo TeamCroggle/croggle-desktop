@@ -1,18 +1,18 @@
 package de.croggle.game.level;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import de.croggle.AlligatorApp;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class LoadColorEditLevelFromJsonTest extends TestCase {
+public class LoadColorEditLevelFromJsonTest extends PlatformTestCase {
 
 	AlligatorApp app;
 
 	@Override
 	protected void setUp() {
-		TestHelper.setupAll();
-		app = TestHelper.getApp();
+		TestHelper.setupAll(this);
+		app = TestHelper.getApp(this);
 	}
 
 	public void testCase0() {

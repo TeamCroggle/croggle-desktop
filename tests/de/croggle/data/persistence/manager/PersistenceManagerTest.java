@@ -3,7 +3,6 @@ package de.croggle.data.persistence.manager;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
 import de.croggle.AlligatorApp;
 import de.croggle.data.persistence.LevelProgress;
 import de.croggle.data.persistence.Setting;
@@ -12,18 +11,19 @@ import de.croggle.game.achievement.Achievement;
 import de.croggle.game.achievement.AchievementController;
 import de.croggle.game.achievement.TimeAchievement;
 import de.croggle.game.profile.Profile;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 import de.croggle.util.SparseArray;
 
-public class PersistenceManagerTest extends TestCase {
+public class PersistenceManagerTest extends PlatformTestCase {
 
 	PersistenceManager persistenceManager;
 	AchievementController achievementController;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll();
-		AlligatorApp app = TestHelper.getApp();
+		TestHelper.setupAll(this);
+		AlligatorApp app = TestHelper.getApp(this);
 		persistenceManager = app.getPersistenceManager();
 		achievementController = app.getAchievementController();
 	}

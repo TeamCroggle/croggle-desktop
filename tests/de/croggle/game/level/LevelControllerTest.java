@@ -1,18 +1,18 @@
 package de.croggle.game.level;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import de.croggle.AlligatorApp;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class LevelControllerTest extends TestCase {
+public class LevelControllerTest extends PlatformTestCase {
 
 	LevelController controller;
 
 	@Override
 	protected void setUp() throws Exception {
-		TestHelper.setupAll();
-		AlligatorApp app = TestHelper.getApp();
+		TestHelper.setupAll(this);
+		AlligatorApp app = TestHelper.getApp(this);
 		controller = new LevelController(0, app);
 	}
 

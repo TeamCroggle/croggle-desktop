@@ -7,6 +7,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="croggle-desktop/croggle/libs"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="testplatform"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/source/gdx-backend-lwjgl-sources.jar"/>

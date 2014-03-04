@@ -1,18 +1,18 @@
 package de.croggle.data.persistence.manager;
 
-import junit.framework.TestCase;
 import de.croggle.data.persistence.Setting;
 import de.croggle.game.profile.Profile;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class SettingManagerTest extends TestCase {
+public class SettingManagerTest extends PlatformTestCase {
 
 	private SettingManager settingManager;
 	private ProfileManager profileManager;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll();
+		TestHelper.setupAll(this);
 		settingManager = new SettingManager();
 		profileManager = new ProfileManager();
 

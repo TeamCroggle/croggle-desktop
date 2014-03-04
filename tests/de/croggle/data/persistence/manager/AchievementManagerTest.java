@@ -1,6 +1,5 @@
 package de.croggle.data.persistence.manager;
 
-import junit.framework.TestCase;
 import de.croggle.game.achievement.Achievement;
 import de.croggle.game.achievement.AlligatorsEatenAchievement;
 import de.croggle.game.achievement.AlligatorsEatenPerLevelAchievement;
@@ -9,17 +8,18 @@ import de.croggle.game.achievement.AlligatorsPlacedPerLevelAchievement;
 import de.croggle.game.achievement.HintPerLevelAchievement;
 import de.croggle.game.achievement.TimeAchievement;
 import de.croggle.game.profile.Profile;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 import de.croggle.util.SparseArray;
 
-public class AchievementManagerTest extends TestCase {
+public class AchievementManagerTest extends PlatformTestCase {
 
 	private AchievementManager achievementManager;
 	private ProfileManager profileManager;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll();
+		TestHelper.setupAll(this);
 		achievementManager = new AchievementManager();
 		profileManager = new ProfileManager();
 

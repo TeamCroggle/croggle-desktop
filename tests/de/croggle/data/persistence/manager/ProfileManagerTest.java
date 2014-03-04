@@ -2,20 +2,19 @@ package de.croggle.data.persistence.manager;
 
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import com.badlogic.gdx.Gdx;
 
 import de.croggle.game.profile.Profile;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class ProfileManagerTest extends TestCase {
+public class ProfileManagerTest extends PlatformTestCase {
 
 	private ProfileManager profileManager;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll();
+		TestHelper.setupAll(this);
 		// TODO
 		// getContext().deleteDatabase("persistenceDB");
 		Gdx.files.internal("test.db").file().delete();

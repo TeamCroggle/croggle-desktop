@@ -1,5 +1,6 @@
 #!/bin/bash
 cd ..
+rm croggle-desktop/croggle.zip
 zip -r croggle-desktop/croggle\
 	croggle-desktop/bin\
 	croggle-desktop/croggle.desktop\

@@ -1,18 +1,18 @@
 package de.croggle.data.persistence.manager;
 
-import junit.framework.TestCase;
 import de.croggle.data.persistence.LevelProgress;
 import de.croggle.game.profile.Profile;
+import de.croggle.test.PlatformTestCase;
 import de.croggle.test.TestHelper;
 
-public class LevelProgressManagerTest extends TestCase {
+public class LevelProgressManagerTest extends PlatformTestCase {
 
 	private LevelProgressManager levelProgressManager;
 	private ProfileManager profileManager;
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll();
+		TestHelper.setupAll(this);
 
 		levelProgressManager = new LevelProgressManager();
 		profileManager = new ProfileManager();

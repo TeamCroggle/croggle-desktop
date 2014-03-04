@@ -1,10 +1,12 @@
 package de.croggle.test;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.mock.audio.MockAudio;
 import com.badlogic.gdx.backends.headless.mock.graphics.MockGraphics;
 import com.badlogic.gdx.backends.headless.mock.input.MockInput;
+import com.badlogic.gdx.files.FileHandle;
 
 import de.croggle.AlligatorApp;
 import de.croggle.backends.DesktopBackendHelper;
@@ -17,29 +19,43 @@ public class TestHelper {
 	private static DesktopBackendHelper backendHelper = null;
 
 	private TestHelper() {
-
 	}
 
-	public static void setupAll() {
-		setupCroggleBackends();
-		setupGdx();
+	private ApplicationType getEnvironmentType() {
+		try {
+			Class.forName("R");
+			return ApplicationType.Android;
+		} catch (ClassNotFoundException e) {
+			return ApplicationType.Desktop;
+		}
 	}
 
-	public static void setupGdx() {
-		setupCroggleBackends();
+	public static void setupAll(PlatformTestCase test) {
+		setupCroggleBackends(test);
+		setupGdx(test);
+	}
+
+	public static void setupGdx(PlatformTestCase test) {
+		setupGdxApp();
+		setupGdxAudio();
+		setupGdxGraphics();
+		setupGdxInput();
+	}
+
+	public static void setupGdxApp() {
+		boolean wasNull = false;
 		if (app == null) {
 			AlligatorApp.HEADLESS = true;
 			app = new AlligatorApp();
+			wasNull = true;
 		}
 		if (Gdx.app == null) {
 			new HeadlessApplication(app); // will automatically register in
 											// Gdx.app
 		}
-		setupGdxAudio();
-		setupGdxGraphics();
-		setupGdxInput();
-
-		app.create();
+		if (wasNull) {
+			app.create();
+		}
 	}
 
 	public static void setupGdxInput() {
@@ -60,15 +76,15 @@ public class TestHelper {
 		}
 	}
 
-	public static AlligatorApp getApp() {
+	public static AlligatorApp getApp(PlatformTestCase test) {
 		if (app == null) {
-			setupAll();
+			setupAll(test);
 		}
 
 		return app;
 	}
 
-	public static void setupCroggleBackends() {
+	public static void setupCroggleBackends(PlatformTestCase test) {
 		if (localizationBackend == null) {
 			localizationBackend = new DesktopLocalizationBackend();
 			LocalizationHelper.setBackend(localizationBackend);
@@ -77,6 +93,16 @@ public class TestHelper {
 		if (backendHelper == null) {
 			backendHelper = new TestBackendHelper();
 			backendHelper.set();
+		}
+	}
+
+	public static void deleteDatabase(PlatformTestCase test, String name) {
+		if (Gdx.files == null) {
+			setupGdx(test);
+		}
+		FileHandle db = Gdx.files.local(name);
+		if (db.exists()) {
+			db.delete();
 		}
 	}
 }
