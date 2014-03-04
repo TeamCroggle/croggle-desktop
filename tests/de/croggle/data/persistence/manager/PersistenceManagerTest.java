@@ -22,7 +22,6 @@ public class PersistenceManagerTest extends PlatformTestCase {
 
 	@Override
 	public void setUp() {
-		TestHelper.setupAll(this);
 		AlligatorApp app = TestHelper.getApp(this);
 		persistenceManager = app.getPersistenceManager();
 		achievementController = app.getAchievementController();
@@ -183,7 +182,6 @@ public class PersistenceManagerTest extends PlatformTestCase {
 
 		SparseArray<Integer> sia = persistenceManager
 				.getAllUnlockedAchievements("Tim");
-		System.out.println(sia.size());
 		assertTrue(sia.size() == achievementController
 				.getAvailableAchievements().size());
 

@@ -10,8 +10,9 @@ public class LevelLoadHelperTest extends PlatformTestCase {
 
 	@Override
 	protected void setUp() {
-		TestHelper.setupAll(this);
-		app = TestHelper.getApp(this);
+		TestHelper.setupGdxFiles(this);
+		TestHelper.setupCroggleBackends(this);
+		app = new AlligatorApp();
 	}
 
 	public void testCase0() {

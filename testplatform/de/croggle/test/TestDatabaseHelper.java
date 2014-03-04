@@ -13,12 +13,14 @@ import de.croggle.backends.sqlite.SQLException;
 
 public class TestDatabaseHelper extends DesktopDatabaseHelper {
 
+	public static final String TEST_DB_NAME = "test.db";
+
 	@Override
 	public Database getWritableDatabase() {
 		if (database == null) {
 			try {
 				Class.forName("org.sqlite.JDBC");
-				FileHandle dbFile = Gdx.files.internal("test.db");
+				FileHandle dbFile = Gdx.files.internal(TEST_DB_NAME);
 				boolean existing = dbFile.exists();
 				Connection c = DriverManager.getConnection("jdbc:sqlite:"
 						+ dbFile.path());

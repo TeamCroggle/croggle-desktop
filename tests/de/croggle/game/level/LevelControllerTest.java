@@ -11,7 +11,6 @@ public class LevelControllerTest extends PlatformTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		TestHelper.setupAll(this);
 		AlligatorApp app = TestHelper.getApp(this);
 		controller = new LevelController(0, app);
 	}

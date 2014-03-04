@@ -11,8 +11,8 @@ public class LoadColorEditLevelFromJsonTest extends PlatformTestCase {
 
 	@Override
 	protected void setUp() {
-		TestHelper.setupAll(this);
-		app = TestHelper.getApp(this);
+		TestHelper.setupGdxFiles(this);
+		app = new AlligatorApp();
 	}
 
 	public void testCase0() {

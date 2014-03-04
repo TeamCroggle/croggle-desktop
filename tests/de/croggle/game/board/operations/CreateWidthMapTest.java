@@ -2,6 +2,8 @@ package de.croggle.game.board.operations;
 
 import java.util.Map;
 
+import junit.framework.TestCase;
+
 import com.badlogic.gdx.math.Vector2;
 
 import de.croggle.game.Color;
@@ -10,11 +12,9 @@ import de.croggle.game.board.Board;
 import de.croggle.game.board.BoardObject;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
-import de.croggle.ui.renderer.layout.ActorLayoutConfiguration;
-import de.croggle.ui.renderer.objectactors.AgedAlligatorActor;
 import de.croggle.ui.renderer.TreeGrowth;
+import de.croggle.ui.renderer.layout.ActorLayoutConfiguration;
 import de.croggle.util.convert.LambdaToAlligator;
-import junit.framework.TestCase;
 
 public class CreateWidthMapTest extends TestCase {
 	public void testSimple() {
@@ -37,7 +37,9 @@ public class CreateWidthMapTest extends TestCase {
 	public void testCase0() {
 		// standard layout options
 		ActorLayoutConfiguration config = new ActorLayoutConfiguration(
-				new Vector2(0, 0), TreeGrowth.NEG_POS, TreeGrowth.POS_NEG, TreeGrowth.NEG_POS, TreeGrowth.NEG_POS, .75f, 2, 2, null, false, 150, 150, 150, 150, 150, 150);
+				new Vector2(0, 0), TreeGrowth.NEG_POS, TreeGrowth.POS_NEG,
+				TreeGrowth.NEG_POS, TreeGrowth.NEG_POS, .75f, 2, 2, null,
+				false, 150, 150, 150, 150, 150, 150);
 
 		Board b = LambdaToAlligator.convert("(λx.x) ((λy.y) (λz.z))");
 		Map<BoardObject, Float> map = CreateWidthMap.create(b,

@@ -3,6 +3,7 @@ package de.croggle.test;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
+import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.badlogic.gdx.backends.headless.mock.audio.MockAudio;
 import com.badlogic.gdx.backends.headless.mock.graphics.MockGraphics;
 import com.badlogic.gdx.backends.headless.mock.input.MockInput;
@@ -36,10 +37,10 @@ public class TestHelper {
 	}
 
 	public static void setupGdx(PlatformTestCase test) {
-		setupGdxApp();
 		setupGdxAudio();
 		setupGdxGraphics();
 		setupGdxInput();
+		setupGdxApp();
 	}
 
 	public static void setupGdxApp() {
@@ -55,6 +56,12 @@ public class TestHelper {
 		}
 		if (wasNull) {
 			app.create();
+		}
+	}
+
+	public static void setupGdxFiles(PlatformTestCase test) {
+		if (Gdx.files == null) {
+			Gdx.files = new HeadlessFiles();
 		}
 	}
 
@@ -87,13 +94,13 @@ public class TestHelper {
 	public static void setupCroggleBackends(PlatformTestCase test) {
 		if (localizationBackend == null) {
 			localizationBackend = new DesktopLocalizationBackend();
-			LocalizationHelper.setBackend(localizationBackend);
 		}
+		LocalizationHelper.setBackend(localizationBackend);
 
 		if (backendHelper == null) {
 			backendHelper = new TestBackendHelper();
-			backendHelper.set();
 		}
+		backendHelper.set();
 	}
 
 	public static void deleteDatabase(PlatformTestCase test, String name) {
