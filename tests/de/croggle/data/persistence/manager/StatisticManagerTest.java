@@ -46,9 +46,8 @@ public class StatisticManagerTest extends PlatformTestCase {
 	public void testInsertStatistic() {
 
 		Statistic statistic1 = new Statistic();
-		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2, 1,
-				8);
-		Statistic statistic3 = new Statistic(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2);
+		Statistic statistic3 = new Statistic(1, 2, 3, 4, 5, 6, 7, 8);
 
 		assertTrue(0 == statisticManager.getRowCount());
 
@@ -65,8 +64,7 @@ public class StatisticManagerTest extends PlatformTestCase {
 	public void testFetchStatistic() {
 
 		Statistic statistic1 = new Statistic();
-		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2, 1,
-				8);
+		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2);
 
 		statisticManager.addStatistic("Tim", statistic1);
 		statisticManager.addStatistic("Anna", statistic2);
@@ -80,8 +78,7 @@ public class StatisticManagerTest extends PlatformTestCase {
 	public void testDeleteStatistic() {
 
 		Statistic statistic1 = new Statistic();
-		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2, 1,
-				8);
+		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2);
 
 		statisticManager.addStatistic("Max", statistic1);
 		statisticManager.addStatistic("Anna", statistic2);
@@ -98,8 +95,7 @@ public class StatisticManagerTest extends PlatformTestCase {
 	public void testEditStatistic() {
 
 		Statistic statistic1 = new Statistic();
-		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2, 1,
-				8);
+		Statistic statistic2 = new Statistic(7, 124, 3464, 3, 123, 6, 5, 2);
 
 		statisticManager.addStatistic("Max", statistic1);
 		statisticManager.editStatistic("Max", statistic2);

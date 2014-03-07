@@ -95,6 +95,7 @@ public class ProfileControllerTest extends PlatformTestCase {
 		String oldName = "Tim";
 		String oldPicturePath = "assets/picture1";
 		try {
+			profileController.editCurrentProfile(oldName, oldPicturePath);
 			profileController.createNewProfile(oldName, oldPicturePath);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -106,8 +107,7 @@ public class ProfileControllerTest extends PlatformTestCase {
 						.equals(oldPicturePath));
 
 		Setting setting = new Setting(0.1f, 1f, false, true);
-		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2, -2,
-				-2);
+		Statistic statistic = new Statistic(-2, -2, -2, -2, -2, -2, -2, -2);
 
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
@@ -139,6 +139,13 @@ public class ProfileControllerTest extends PlatformTestCase {
 		assertTrue(profileController.getCurrentProfileName().equals(oldName)
 				&& profileController.getCurrentProfile().getPicturePath()
 						.equals(oldPicturePath));
+
+		try {
+			profileController.editCurrentProfile(newName, newPicturePath);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
 
 	}
 
@@ -196,7 +203,7 @@ public class ProfileControllerTest extends PlatformTestCase {
 		assertTrue(settingController.getCurrentSetting().equals(new Setting()));
 
 		Setting setting = new Setting(0.5f, 0.6f, true, true);
-		Statistic statistic = new Statistic(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Statistic statistic = new Statistic(1, 2, 3, 4, 5, 6, 7, 8);
 
 		settingController.editCurrentSetting(setting);
 		statisticController.editCurrentStatistic(statistic);
@@ -231,5 +238,105 @@ public class ProfileControllerTest extends PlatformTestCase {
 						.equals("assets/picture1"));
 
 	}
+
+	public void testUpdateListeners() {
+		ProfileChangeListenerStub mockUp1 = new ProfileChangeListenerStub();
+		ProfileChangeListenerStub mockUp2 = new ProfileChangeListenerStub();
+
+		profileController.addProfileChangeListener(mockUp1);
+		profileController.addProfileChangeListener(mockUp2);
+
+		try {
+			profileController.addProfileChangeListener(null);
+			fail();
+		} catch (IllegalArgumentException iae) {
+			assertTrue(true);
+		}
+
+		String name1 = "Max";
+		String picturePath1 = "assets/picture1";
+		
+		try {
+			profileController.createNewProfile(name1, picturePath1);
+		} catch (IllegalArgumentException e) {
+			fail();
+		} catch (ProfileOverflowException e) {
+			fail();
+		}
+
+		assertTrue(mockUp1.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp1.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+		
+		assertTrue(mockUp2.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp2.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+		
+		String name2 = "Tom";
+		String picturePath2 = "assets/picture2";
+		
+		try {
+			profileController.createNewProfile(name2, picturePath2);
+		} catch (IllegalArgumentException e) {
+			fail();
+		} catch (ProfileOverflowException e) {
+			fail();
+		}
+
+		assertTrue(mockUp1.getLastReceivedProfile().getName().equals(name2)
+				&& mockUp1.getLastReceivedProfile().getPicturePath().equals(
+						picturePath2));
+		
+		assertTrue(mockUp2.getLastReceivedProfile().getName().equals(name2)
+				&& mockUp2.getLastReceivedProfile().getPicturePath().equals(
+						picturePath2));
+		
+		profileController.changeCurrentProfile(name1);
+		
+		assertTrue(mockUp1.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp1.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+		
+		assertTrue(mockUp2.getLastReceivedProfile().getName().equals(name1)
+				&& mockUp2.getLastReceivedProfile().getPicturePath().equals(
+						picturePath1));
+	}
+
+	public void testGetAllProfiles() {
+		String name1 = "Anne";
+		String name2 = "Tim";
+		String name3 = "Lea";
+		String name4 = "Tom";
+		String picturePath = "assets/picture1";
+
+		assertTrue(profileController.getAllProfiles().isEmpty());
+
+		try {
+			profileController.createNewProfile(name1, picturePath);
+			profileController.createNewProfile(name2, picturePath);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (ProfileOverflowException e) {
+			e.printStackTrace();
+		}
+
+		assertTrue(profileController.getAllProfiles().size() == 2);
+
+		profileController.deleteCurrentProfile();
+
+		assertTrue(profileController.getAllProfiles().size() == 1);
+
+		try {
+			profileController.createNewProfile(name3, picturePath);
+			profileController.createNewProfile(name4, picturePath);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (ProfileOverflowException e) {
+			e.printStackTrace();
+		}
+
+		assertTrue(profileController.getAllProfiles().size() == 3);
+	}
+
 
 }

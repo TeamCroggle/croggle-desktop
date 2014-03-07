@@ -35,7 +35,7 @@ public class PersistenceManagerTest extends PlatformTestCase {
 	public void testAddProfile() {
 		Profile profile = new Profile("Hans", "assets/path1");
 		Setting setting = new Setting(1, 2, true, false);
-		Statistic statistic = new Statistic(1, 1, 2, 3, 5, 8, 13, 21, 34, 55);
+		Statistic statistic = new Statistic(1, 1, 2, 3, 5, 8, 21, 34);
 		profile.setSetting(setting);
 		profile.setStatistic(statistic);
 
@@ -53,7 +53,7 @@ public class PersistenceManagerTest extends PlatformTestCase {
 	public void testEditProfile() {
 		Profile profile1 = new Profile("Lea", "assets/path3");
 		Setting setting = new Setting(1, 2, true, false);
-		Statistic statistic = new Statistic(1, 1, 2, 3, 5, 8, 13, 21, 34, 55);
+		Statistic statistic = new Statistic(1, 1, 2, 3, 5, 8, 13, 21);
 		profile1.setSetting(setting);
 		profile1.setStatistic(statistic);
 
@@ -136,8 +136,8 @@ public class PersistenceManagerTest extends PlatformTestCase {
 
 	public void testEditStatistic() {
 		Profile profile = new Profile("Tom", "test");
-		Statistic statistic1 = new Statistic(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		Statistic statistic2 = new Statistic(7, 7, 7, 7, 7, 7, 7, 7, 7, 7);
+		Statistic statistic1 = new Statistic(1, 2, 3,4, 5, 6, 7, 8);
+		Statistic statistic2 = new Statistic(7, 7, 7, 7, 7, 7, 7, 7);
 		profile.setStatistic(statistic1);
 
 		persistenceManager.addProfile(profile);
@@ -145,6 +145,36 @@ public class PersistenceManagerTest extends PlatformTestCase {
 
 		persistenceManager.editStatistic("Tom", statistic2);
 		assertTrue(persistenceManager.getStatistic("Tom").equals(statistic2));
+	}
+	
+	public void testGetStatistic() {
+		Profile profile = new Profile("Anne", "test");
+		persistenceManager.addProfile(profile);
+		assertTrue(persistenceManager.getStatistic("Anne").equals(new Statistic()));
+		
+		persistenceManager.saveLevelProgress("Anne", new LevelProgress(1, true, "board1", 20));
+		persistenceManager.saveLevelProgress("Anne", new LevelProgress(2, true, "board2", 30));
+		persistenceManager.saveLevelProgress("Anne", new LevelProgress(3, true, "board3", 1));
+		
+		Statistic statistic = persistenceManager.getStatistic("Anne");
+		assertTrue(statistic.getLevelsComplete() == 3);
+		
+		persistenceManager.saveLevelProgress("Anne", new LevelProgress(4, false, "board4", 1));
+		
+		statistic = persistenceManager.getStatistic("Anne");
+		assertTrue(statistic.getLevelsComplete() == 3);
+		
+		persistenceManager.saveLevelProgress("Anne", new LevelProgress(4, true, "board5", 1));
+		
+		statistic = persistenceManager.getStatistic("Anne");
+		assertTrue(statistic.getLevelsComplete() == 4);
+	
+		assertTrue(statistic.getPackagesComplete() == 0);
+		persistenceManager.saveLevelProgress("Anne", new LevelProgress(11, true, "board1", 20));
+		
+		statistic = persistenceManager.getStatistic("Anne");
+		assertTrue(statistic.getPackagesComplete() == 1);
+
 	}
 
 	public void testEditSetting() {
