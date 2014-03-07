@@ -5,6 +5,8 @@ import com.badlogic.gdx.Files.FileType;
 import de.croggle.backends.BackendHelper;
 import de.croggle.backends.DesktopBackendHelper;
 import de.croggle.backends.LocalizationBackend;
+import de.croggle.backends.desktop.DesktopApplication;
+import de.croggle.backends.desktop.DesktopApplicationConfiguration;
 import de.croggle.backends.desktop.DesktopLocalizationBackend;
 import de.croggle.data.LocalizationHelper;
 

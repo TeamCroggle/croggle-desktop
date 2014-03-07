@@ -1,4 +1,4 @@
-package de.croggle;
+package de.croggle.backends.desktop;
 
 import java.io.File;
 import java.util.HashMap;
@@ -9,6 +9,8 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglFileHandle;
 import com.badlogic.gdx.backends.lwjgl.LwjglPreferences;
+
+import de.croggle.AlligatorApp;
 
 public class DesktopApplication extends LwjglApplication {
 
