@@ -63,6 +63,9 @@ public class AchievementControllerTest extends TestCase {
 		List<Achievement> unlockedAchievement = achievementController
 				.updateAchievements(statistic1, statistic2);
 
+		List<Achievement> unlockedViaMethod = achievementController.getUnlockedAchievements();
+		
+		assertTrue(unlockedViaMethod.size() == 0);
 		assertTrue(unlockedAchievement.isEmpty());
 		for (Achievement achievement5 : achievementController
 				.getAvailableAchievements())
@@ -70,6 +73,7 @@ public class AchievementControllerTest extends TestCase {
 														// it's initiazation
 														// stage yet.
 
+		
 		for (Achievement achievement2 : achievementController
 				.getLatestUnlockedAchievements()) {
 			assertTrue(achievementController.getAvailableAchievements()
@@ -87,7 +91,7 @@ public class AchievementControllerTest extends TestCase {
 
 		unlockedAchievement = achievementController.updateAchievements(
 				statistic1, statistic2);
-
+		
 		assertTrue(unlockedAchievement.size() == 7);
 
 		for (Achievement achievement3 : unlockedAchievement) {
@@ -112,6 +116,10 @@ public class AchievementControllerTest extends TestCase {
 
 		unlockedAchievement = achievementController.updateAchievements(
 				statistic1, statistic2);
+		
+		unlockedViaMethod = achievementController.getUnlockedAchievements();
+		
+		assertTrue(unlockedViaMethod.size() == 7);
 
 		for (Achievement achievement6 : unlockedAchievement) {
 			assertTrue(achievement6.getIndex() == achievement6
