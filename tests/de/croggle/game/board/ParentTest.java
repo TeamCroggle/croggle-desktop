@@ -22,7 +22,7 @@ public class ParentTest extends TestCase {
 		};
 	}
 
-	public void testAddChild() {
+	public void testAddChildAndClear() {
 		final InternalBoardObject child = getNewChild();
 		parent.addChild(child);
 		Assert.assertEquals(1, parent.getChildCount());
@@ -30,6 +30,7 @@ public class ParentTest extends TestCase {
 		Assert.assertTrue(parent.getFirstChild() == child);
 		Assert.assertTrue(child.getParent() == parent);
 		Assert.assertTrue(parent.isLastChild(child));
+		
 		int i = 0;
 		for (InternalBoardObject currentChild : parent) {
 			if (i == 0) {
@@ -39,6 +40,12 @@ public class ParentTest extends TestCase {
 				fail();
 			}
 		}
+		parent.addChild(getNewChild());
+		assertFalse(parent.isLastChild(child));
+		assertFalse(parent.addChild(child));
+		parent.clearChildren();
+		assertTrue(parent.getChildCount() == 0);
+		assertFalse(parent.isLastChild(child));
 	}
 
 	public void testInsertChild() {
@@ -76,6 +83,8 @@ public class ParentTest extends TestCase {
 		Assert.assertTrue(parent.getChildAfter(child1) == child2);
 		Assert.assertTrue(parent.getChildAfter(child2) == child3);
 		Assert.assertTrue(parent.getChildAfter(child3) == null);
+		
+		assertFalse(parent.insertChild(child3, 0));
 	}
 
 	public void testRemoveChild() {
@@ -129,6 +138,17 @@ public class ParentTest extends TestCase {
 		Assert.assertEquals(-1, parent.getChildPosition(child2));
 		Assert.assertEquals(1, parent.getChildPosition(child3));
 	}
+	
+	public void testgetFirstChildExeption() throws NoSuchChildException{
+		try {
+			parent.getFirstChild();
+			fail("exception should have been thrown.");
+		}
+		catch (NoSuchChildException e) {
+			assertTrue(true);
+		}
+	}
+	
 
 	private InternalBoardObject getNewChild() {
 		return new Egg(false, false, new Color(1), false);
