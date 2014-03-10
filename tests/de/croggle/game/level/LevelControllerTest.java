@@ -26,4 +26,7 @@ public class LevelControllerTest extends PlatformTestCase {
 				.equals("Erstes Tutorial Level in dem das Einfärben von Spielelementen erklärt wird."));
 	}
 
+	public void testGetter() {
+		controller.getPackageIndex();
+	}
 }

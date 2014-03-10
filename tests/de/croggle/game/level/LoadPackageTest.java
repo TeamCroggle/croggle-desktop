@@ -32,4 +32,20 @@ public class LoadPackageTest extends PlatformTestCase {
 		Assert.assertEquals(one.getDescription(),
 				"Levelpaket zum Erlernen von Croggel.");
 	}
+	
+	public void testGetter() {
+		LevelPackagesController controller = new LevelPackagesController(app);
+		List<LevelPackage> list = controller.getLevelPackages();
+		LevelPackage packageOne = list.get(0);
+		assertNotNull(packageOne.getAnimation());
+		assertNotNull(packageOne.getDescription());
+		assertNotNull(packageOne.getDesign());
+		assertNotNull(packageOne.getEmblemPath());
+		assertNotNull(packageOne.getName());
+		assertNotNull(packageOne.getLevelPackageId());
+		LevelPackage test02 = new LevelPackage(1, "test", "test description",
+				"not interesting", false, null,
+				" test");
+		assertNull(test02.getAnimation());
+	}
 }
