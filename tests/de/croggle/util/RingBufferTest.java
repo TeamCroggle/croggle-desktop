@@ -5,9 +5,12 @@ import junit.framework.TestCase;
 public class RingBufferTest extends TestCase {
 	private final static int TEST_SIZE = 30;
 	private RingBuffer<Object> ringBuffer;
+	private PatternBuilder patternBuilder;
 
 	protected void setUp() {
 		ringBuffer = new RingBuffer<Object>(TEST_SIZE);
+		patternBuilder = new PatternBuilder();
+		
 	}
 
 	public void testPush() {
