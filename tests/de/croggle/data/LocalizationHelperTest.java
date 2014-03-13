@@ -44,4 +44,55 @@ public class LocalizationHelperTest extends PlatformTestCase {
 		// system locale should be default
 		assertEquals(sys, LocalizationHelper.getApplicationLocale());
 	}
+
+	public void testGetLocalizedString() {
+		assertNotNull(LocalizationHelper.localizedList("test"));
+	}
+	
+	public void testExceptions() {
+		LocalizationHelper.setBackend(null);
+		try {
+			
+			LocalizationHelper.getLocalizedString("test");
+			fail();
+		}
+		catch(RuntimeException e){
+			assertTrue(true);
+		}
+		try {
+			LocalizationHelper.getLocalizedString("test", 1);
+			fail();
+		}
+		catch (RuntimeException e) {
+			assertTrue(true);
+		}
+		try {
+			LocalizationHelper.localizedList("test");
+			fail();
+		}
+		catch(RuntimeException e) {
+			assertTrue(true);
+		}
+		try {
+			LocalizationHelper.getApplicationLocale();
+			fail();
+		}
+		catch (RuntimeException e) {
+			assertTrue(true);
+		}
+		try {
+			LocalizationHelper.setApplicationLocale(null);
+			fail();
+		}
+		catch(RuntimeException e) {
+			assertTrue(true);
+		}
+		try {
+			LocalizationHelper.getSystemLocale();
+			fail();
+		}
+		catch(RuntimeException e) {
+			assertTrue(true);
+		}
+	}
 }
