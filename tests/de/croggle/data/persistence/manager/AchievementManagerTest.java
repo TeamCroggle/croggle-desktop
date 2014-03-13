@@ -124,7 +124,7 @@ public class AchievementManagerTest extends PlatformTestCase {
 
 	}
 
-	public void deleteUnlockedAchievements() {
+	public void testDeleteUnlockedAchievements() {
 
 		Achievement achievement1 = new TimeAchievement();
 		achievement1.setId(1);
@@ -152,8 +152,38 @@ public class AchievementManagerTest extends PlatformTestCase {
 		unlockedAchivements = achievementManager
 				.getUnlockedAchievements("Anna");
 
-		assertTrue(unlockedAchivements.size() == 0);
+		assertNull(unlockedAchivements);
 
+	}
+	
+	public void testIllegalArgumentException() {
+		Achievement achievement1 = new TimeAchievement();
+		achievement1.setId(1);
+		achievement1.setIndex(0);
+
+		Achievement achievement2 = new AlligatorsPlacedAchievement();
+		achievement2.setId(2);
+		achievement2.setIndex(5);
+
+		Achievement achievement3 = new AlligatorsPlacedPerLevelAchievement();
+		achievement3.setId(10);
+		achievement3.setIndex(100);
+
+		
+
+		SparseArray<Integer> unlockedAchivements = achievementManager
+				.getUnlockedAchievements("Anna");
+		try {
+			achievementManager.addUnlockedAchievement("Anna", achievement1);
+			achievementManager.addUnlockedAchievement("Anna", achievement2);
+			achievementManager.addUnlockedAchievement("Anna", achievement3);
+			achievementManager.addUnlockedAchievement("Anna", achievement3);
+			achievementManager.getUnlockedAchievements("Anna");
+			fail();
+		}
+		catch(IllegalStateException e) {
+			assertTrue(true);
+		}
 	}
 
 }
