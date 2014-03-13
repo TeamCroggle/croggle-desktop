@@ -39,4 +39,8 @@ public class ProfileTest extends TestCase {
 		assertFalse(profile8.equals(profile7));
 	}
 	
+	public void testOverflowException() {
+		ProfileOverflowException poe = new ProfileOverflowException("test");
+	}
+	
 }
