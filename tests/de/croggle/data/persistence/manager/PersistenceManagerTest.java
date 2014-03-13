@@ -9,6 +9,7 @@ import de.croggle.data.persistence.Setting;
 import de.croggle.data.persistence.Statistic;
 import de.croggle.game.achievement.Achievement;
 import de.croggle.game.achievement.AchievementController;
+import de.croggle.game.achievement.AlligatorsEatenAchievement;
 import de.croggle.game.achievement.TimeAchievement;
 import de.croggle.game.profile.Profile;
 import de.croggle.test.PlatformTestCase;
@@ -205,7 +206,7 @@ public class PersistenceManagerTest extends PlatformTestCase {
 				levelProgress2));
 	}
 
-	public void testInsertUnlockedAchievements() {
+	public void testInsertAndSaveUnlockedAchievements() {
 
 		Profile profile = new Profile("Tim", "test");
 		persistenceManager.addProfile(profile);
@@ -214,6 +215,8 @@ public class PersistenceManagerTest extends PlatformTestCase {
 				.getAllUnlockedAchievements("Tim");
 		assertTrue(sia.size() == achievementController
 				.getAvailableAchievements().size());
+		List<Achievement> testlist = new ArrayList<Achievement>();
+		persistenceManager.saveUnlockedAchievements("tim", testlist);
 
 	}
 
@@ -246,5 +249,15 @@ public class PersistenceManagerTest extends PlatformTestCase {
 		assertTrue(sa.get(1) == achievement1.getIndex());
 		assertTrue(sa.get(2) == achievement2.getIndex());
 		assertTrue(sa.get(3) == achievement3.getIndex());
+	}
+	
+	public void testException() {
+		try {
+			persistenceManager.addProfile(null);
+			fail();
+		}
+		catch(IllegalArgumentException e) {
+			assertTrue(true);
+		}
 	}
 }
