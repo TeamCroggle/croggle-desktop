@@ -87,6 +87,13 @@ public class LevelLoadHelperTest extends PlatformTestCase {
 
 	public void testCase22() {
 		Level l = LevelLoadHelper.instantiate(1, 2, app);
-		Assert.assertTrue(l.getLevelIndex() == 2);
+		l.setSolvedTrue();
+		assertTrue(l.getLevelIndex() == 2);
+		assertFalse(l.hasAnimation());
+		assertFalse(l.getUnlocked());
+		assertTrue(l.isSolveable(2));
+		assertTrue(l.isSolved());
+		assertFalse(l.getShowObjectBar());
+		assertTrue(l.getLevelId() == 102);
 	}
 }

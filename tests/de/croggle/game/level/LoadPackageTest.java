@@ -46,5 +46,6 @@ public class LoadPackageTest extends PlatformTestCase {
 				"not interesting", false, null,
 				" test");
 		assertNull(test02.getAnimation());
+		
 	}
 }
