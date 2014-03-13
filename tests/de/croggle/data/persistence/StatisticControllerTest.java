@@ -15,6 +15,7 @@ public class StatisticControllerTest extends PlatformTestCase {
 	public void setUp() {
 		AlligatorApp app = TestHelper.getApp(this);
 		profileController = app.getProfileController();
+		statisticController = new StatisticController(null, null);
 		statisticController = app.getStatisticController();
 		profileController.deleteAllProfiles();
 	}
