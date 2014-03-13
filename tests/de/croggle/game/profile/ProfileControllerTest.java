@@ -122,13 +122,16 @@ public class ProfileControllerTest extends PlatformTestCase {
 		String newPicturePath = "assets/picture7";
 
 		profileController.editCurrentProfile(newName, newPicturePath);
-
+		profileController.editCurrentProfile(oldName, oldPicturePath);
+		profileController.editCurrentProfile(newName, oldPicturePath);
+		profileController.editCurrentProfile(newName, newPicturePath);
+		
 		assertTrue(profileController.getCurrentProfileName().equals(newName)
 				&& profileController.getCurrentProfile().getPicturePath()
 						.equals(newPicturePath));
 		assertTrue(settingController.getCurrentSetting().equals(setting));
 		assertTrue(statisticController.getCurrentStatistic().equals(statistic));
-
+		
 		try {
 			profileController.createNewProfile(oldName, oldPicturePath);
 		} catch (IllegalArgumentException e) {
@@ -146,6 +149,9 @@ public class ProfileControllerTest extends PlatformTestCase {
 		} catch (IllegalArgumentException e) {
 			assertTrue(true);
 		}
+		
+		
+
 
 	}
 
@@ -336,6 +342,64 @@ public class ProfileControllerTest extends PlatformTestCase {
 		}
 
 		assertTrue(profileController.getAllProfiles().size() == 3);
+	}
+	
+	public void testIsActiveProfile() {
+		assertFalse(profileController.isActiveProfileStored());
+		String name1 = "Anne";
+		String name2 = "Tim";
+		String name3 = "Lea";
+		String name4 = "Tom";
+		String picturePath = "assets/picture1";
+
+		assertTrue(profileController.getAllProfiles().isEmpty());
+
+		try {
+			profileController.createNewProfile(name1, picturePath);
+			profileController.createNewProfile(name2, picturePath);
+			profileController.createNewProfile(name3, picturePath);
+			profileController.createNewProfile(name4, picturePath);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (ProfileOverflowException e) {
+			e.printStackTrace();
+		}
+		assertTrue(profileController.isActiveProfileStored());
+	}
+	
+	public void testLoadActiveProfile() {
+		String name1 = "Anne";
+		String name2 = "Tim";
+		String name3 = "Lea";
+		String name4 = "Tom";
+		String picturePath = "assets/picture1";
+
+		assertTrue(profileController.getAllProfiles().isEmpty());
+
+		try {
+			profileController.createNewProfile(name1, picturePath);
+			profileController.createNewProfile(name2, picturePath);
+			profileController.createNewProfile(name3, picturePath);
+			profileController.createNewProfile(name4, picturePath);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (ProfileOverflowException e) {
+			e.printStackTrace();
+		}
+		
+		profileController.loadActiveProfile();
+		assertTrue(true);
+	}
+	
+	public void testIllegalArguments() {
+		try {
+			profileController.changeCurrentProfile("this doenst exists");
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+		
 	}
 
 
