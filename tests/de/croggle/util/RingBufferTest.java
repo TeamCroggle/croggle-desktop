@@ -47,4 +47,22 @@ public class RingBufferTest extends TestCase {
 		}
 		testEmptyPop();
 	}
+
+	public void testPushSize() {
+		assertTrue(ringBuffer.size() == 0);
+		Object object = new Object();
+		ringBuffer.push(object);
+		assertTrue(ringBuffer.size() == 1);
+		ringBuffer.push(object);
+		assertTrue(ringBuffer.size() == 2);
+	}
+
+	public void testIllegalSize() throws IllegalArgumentException {
+		try {
+			ringBuffer = new RingBuffer<Object>(-1);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+	}
 }
