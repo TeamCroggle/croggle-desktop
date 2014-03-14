@@ -12,8 +12,8 @@ import de.croggle.game.board.Board;
 import de.croggle.game.board.BoardObject;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
-import de.croggle.ui.renderer.TreeGrowth;
 import de.croggle.ui.renderer.layout.ActorLayoutConfiguration;
+import de.croggle.ui.renderer.layout.TreeGrowth;
 import de.croggle.util.convert.LambdaToAlligator;
 
 public class CreateWidthMapTest extends TestCase {
