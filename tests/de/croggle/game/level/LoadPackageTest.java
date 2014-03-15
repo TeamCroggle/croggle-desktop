@@ -13,8 +13,7 @@ public class LoadPackageTest extends PlatformTestCase {
 
 	@Override
 	protected void setUp() {
-		TestHelper.setupGdxFiles(this);
-		app = new AlligatorApp();
+		app = TestHelper.getApp(this);
 	}
 
 	public void testLoading() {
