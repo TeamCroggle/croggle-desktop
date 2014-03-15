@@ -9,7 +9,6 @@ import de.croggle.data.persistence.Setting;
 import de.croggle.data.persistence.Statistic;
 import de.croggle.game.achievement.Achievement;
 import de.croggle.game.achievement.AchievementController;
-import de.croggle.game.achievement.AlligatorsEatenAchievement;
 import de.croggle.game.achievement.TimeAchievement;
 import de.croggle.game.profile.Profile;
 import de.croggle.test.PlatformTestCase;
@@ -206,7 +205,7 @@ public class PersistenceManagerTest extends PlatformTestCase {
 				levelProgress2));
 	}
 
-	public void testInsertAndSaveUnlockedAchievements() {
+	public void testUpdateUnlockedAchievements() {
 
 		Profile profile = new Profile("Tim", "test");
 		persistenceManager.addProfile(profile);
@@ -215,9 +214,69 @@ public class PersistenceManagerTest extends PlatformTestCase {
 				.getAllUnlockedAchievements("Tim");
 		assertTrue(sia.size() == achievementController
 				.getAvailableAchievements().size());
-		List<Achievement> testlist = new ArrayList<Achievement>();
-		persistenceManager.saveUnlockedAchievements("tim", testlist);
+		
+		List<Achievement> achievements = new ArrayList<Achievement>();
+		Achievement achievement1 = new TimeAchievement();
+		achievement1.setId(1);
+		achievement1.setIndex(2);
+		
+		Achievement achievement2 = new TimeAchievement();
+		achievement2.setId(2);
+		achievement2.setIndex(5);
+		
+		Achievement achievement3 = new TimeAchievement();
+		achievement3.setId(3);
+		achievement3.setIndex(10);
+		
+		achievements.add(achievement1);
+		achievements.add(achievement2);
+		achievements.add(achievement3);
+		
+		persistenceManager.updateUnlockedAchievements("Tim", achievements);
+		sia = persistenceManager.getAllUnlockedAchievements("Tim");
+		
+		assertTrue(sia.get(1) == 2);
+		assertTrue(sia.get(2) == 5);
+		assertTrue(sia.get(3) == 10);
 
+	}
+	
+	public void testSaveAdditionalAchievements() {
+		Profile profile = new Profile("Tom", "test");
+		persistenceManager.addProfile(profile);
+
+		SparseArray<Integer> sia1 = persistenceManager
+				.getAllUnlockedAchievements("Tom");
+		assertTrue(sia1.size() == achievementController
+				.getAvailableAchievements().size());
+		
+		List<Achievement> achievements = new ArrayList<Achievement>();
+		Achievement achievement1 = new TimeAchievement();
+		achievement1.setId(-1);
+		achievement1.setIndex(0);
+		
+		Achievement achievement2 = new TimeAchievement();
+		achievement2.setId(-2);
+		achievement2.setIndex(-20);
+		
+		Achievement achievement3 = new TimeAchievement();
+		achievement3.setId(-3);
+		achievement3.setIndex(100000);
+		
+		achievements.add(achievement1);
+		achievements.add(achievement2);
+		achievements.add(achievement3);
+		
+		persistenceManager.saveUnlockedAchievements("Tom", achievements);
+		SparseArray<Integer> sia2 = persistenceManager
+				.getAllUnlockedAchievements("Tom");
+		
+		assertTrue(sia1.size() + 3 == sia2.size());
+		
+		assertTrue(sia2.get(-1) == achievement1.getIndex());
+		assertTrue(sia2.get(-2) == achievement2.getIndex());
+		assertTrue(sia2.get(-3) == achievement3.getIndex());
+		
 	}
 
 	public void testEditUnlockedAchievements() {
