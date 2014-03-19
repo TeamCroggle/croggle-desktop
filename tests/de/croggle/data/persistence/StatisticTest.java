@@ -4,6 +4,20 @@ import junit.framework.TestCase;
 
 public class StatisticTest extends TestCase {
 
+	public void testGetter() {
+		Statistic statistic = new Statistic(7, 7, 7, 7, 7, 7, 7, 7, 7, 7);
+		assertTrue(statistic.getAlligatorsEaten() == 7);
+		assertTrue(statistic.getAlligatorsPlaced() == 7);
+		assertTrue(statistic.getEggsHatched() == 7);
+		assertTrue(statistic.getEggsPlaced() == 7);
+		assertTrue(statistic.getLevelsComplete() == 7);
+		assertTrue(statistic.getPackagesComplete() == 7);
+		assertTrue(statistic.getPlaytime() == 7);
+		assertTrue(statistic.getRecolorings() == 7);
+		assertTrue(statistic.getResetsUsed() == 7);
+		assertTrue(statistic.getUsedHints() == 7);
+	}
+	
 	public void testEqualsMethod() {
 		Statistic statistic1 = new Statistic();
 		Statistic statistic2 = new Statistic();

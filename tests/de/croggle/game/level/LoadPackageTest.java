@@ -36,7 +36,7 @@ public class LoadPackageTest extends PlatformTestCase {
 		LevelPackagesController controller = new LevelPackagesController(app);
 		List<LevelPackage> list = controller.getLevelPackages();
 		LevelPackage packageOne = list.get(0);
-		assertNotNull(packageOne.getAnimation());
+		assertNull(packageOne.getAnimation());
 		assertNotNull(packageOne.getDescription());
 		assertNotNull(packageOne.getDesign());
 		assertNotNull(packageOne.getEmblemPath());
