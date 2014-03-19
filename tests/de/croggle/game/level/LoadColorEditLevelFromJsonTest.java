@@ -35,7 +35,7 @@ public class LoadColorEditLevelFromJsonTest extends PlatformTestCase {
 
 	public void testCase5() {
 		Level l = LevelLoadHelper.instantiate(0, 5, app);
-		Assert.assertFalse(l.hasAnimation());
+		Assert.assertTrue(l.hasAnimation());
 		Assert.assertTrue(l.getAbortSimulationAfter() == 5);
 	}
 
