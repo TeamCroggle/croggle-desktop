@@ -29,7 +29,7 @@ public class LoadPackageTest extends PlatformTestCase {
 		List<LevelPackage> list = controller.getLevelPackages();
 		LevelPackage one = list.get(0);
 		Assert.assertEquals(one.getDescription(),
-				"Levelpaket zum Erlernen von Croggel.");
+				"Levelpaket zum Erlernen von Croggle.");
 	}
 	
 	public void testCotroller(){
