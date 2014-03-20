@@ -31,4 +31,9 @@ public class GetParentHierarchyTest extends TestCase {
 		assertTrue(l2.get(0).getClass() == Board.class);
 	}
 
+	public void testBoard() {
+		final Board b = new Board();
+		assertTrue(GetParentHierarchy.get(b).isEmpty());
+	}
+
 }

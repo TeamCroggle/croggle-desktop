@@ -4,9 +4,12 @@ import junit.framework.TestCase;
 import de.croggle.game.Color;
 import de.croggle.game.ColorController;
 import de.croggle.game.ColorOverflowException;
+import de.croggle.game.board.AgedAlligator;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
+import de.croggle.game.board.Parent;
+import de.croggle.game.event.BoardEventMessenger;
 
 public class ReplaceEggsTest extends TestCase {
 	public void testSimple() {
@@ -25,7 +28,7 @@ public class ReplaceEggsTest extends TestCase {
 		a2.addChild(e3);
 
 		try {
-			ReplaceEggs.replace(b, e1.getColor(), a2);
+			ReplaceEggs.replace(b, e1.getColor(), a2, new ColorController());
 		} catch (ColorOverflowException e) {
 			fail();
 		}
@@ -91,5 +94,49 @@ public class ReplaceEggsTest extends TestCase {
 		final Egg z = (Egg) lambdaZ.getFirstChild();
 		assertEquals(z.getColor(), lambdaZ.getColor());
 		assertFalse(z.getColor().equals(lambdaY1.getColor()));
+	}
+
+	public void testColorOverflowException() {
+		final Board board = new Board();
+		Parent currentParent = board;
+		for (int i = 0; i < Color.MAX_COLORS; i++) {
+			final ColoredAlligator alligator = new ColoredAlligator(false,
+					false, new Color(i), false);
+			currentParent.addChild(alligator);
+			currentParent = alligator;
+		}
+		currentParent.addChild(new Egg(false, false, new Color(0), false));
+		final AgedAlligator bornFamily = new AgedAlligator(false, false);
+		currentParent = bornFamily;
+		for (int i = 0; i < Color.MAX_COLORS; i++) {
+			final ColoredAlligator alligator = new ColoredAlligator(false,
+					false, new Color(i), false);
+			currentParent.addChild(alligator);
+			currentParent = alligator;
+		}
+		for (int i = 0; i < Color.MAX_COLORS; i++) {
+			currentParent.addChild(new Egg(false, false, new Color(0), false));
+		}
+		final Board boardCopy = board.copy();
+		final AgedAlligator bornFamilyCopy = bornFamily.copy();
+		try {
+			ReplaceEggs.replace(board, new Color(0), bornFamily,
+					new ColorController());
+			fail();
+		} catch (ColorOverflowException e) {
+		}
+
+		try {
+			ReplaceEggs.replace(boardCopy, new Color(0), bornFamilyCopy,
+					new BoardEventMessenger(), new ColorController());
+			fail();
+		} catch (ColorOverflowException e) {
+
+		}
+
+	}
+	
+	public void testFreeColorOverflowException() {
+		fail();
 	}
 }

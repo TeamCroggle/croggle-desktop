@@ -2,55 +2,82 @@ package de.croggle.game.board.operations;
 
 import java.util.List;
 
+import junit.framework.TestCase;
 import de.croggle.game.Color;
+import de.croggle.game.board.AgedAlligator;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.BoardObject;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
 import de.croggle.game.board.InternalBoardObject;
-import junit.framework.TestCase;
 
 public class FlattenTreeTest extends TestCase {
 	public void testSimple() {
 		Board b = new Board();
-		ColoredAlligator a = new ColoredAlligator(true, true, new Color(0),
-				true);
-		b.addChild(a);
+		AgedAlligator aged = new AgedAlligator(false, false);
+		b.addChild(aged);
+
+		ColoredAlligator colored1 = new ColoredAlligator(true, true, new Color(
+				0), true);
+		ColoredAlligator colored2 = new ColoredAlligator(false, false,
+				new Color(1), false);
+		aged.addChild(colored1);
+		aged.addChild(colored2);
 		Egg e1 = new Egg(true, true, new Color(0), true);
-		a.addChild(e1);
+		colored1.addChild(e1);
 		Egg e2 = new Egg(true, true, new Color(1), true);
-		b.addChild(e2);
-		
+		colored1.addChild(e2);
+		Egg e3 = new Egg(false, false, new Color(1), false);
+		colored2.addChild(e3);
+
 		List<BoardObject> list = FlattenTree.toList(b);
-		
-		assertEquals(4, list.size());
+		List<InternalBoardObject> internalList = FlattenTree.toList(aged);
+		BoardObject[] array = FlattenTree.toArray(b);
+		BoardObject[] internalArray = FlattenTree.toArray(aged);
+
+		assertEquals(7, list.size());
 		assertTrue(list.contains(b));
-		assertTrue(list.contains(a));
+		assertTrue(list.contains(aged));
+		assertTrue(list.contains(colored1));
+		assertTrue(list.contains(colored2));
 		assertTrue(list.contains(e1));
 		assertTrue(list.contains(e2));
-		
-		List<InternalBoardObject> internalList = FlattenTree.toList(a);
-		
-		assertEquals(internalList.size(), 2);
-		assertTrue(internalList.contains(a));
+
+		assertTrue(list.contains(e3));
+
+		assertEquals(6, internalList.size());
+		assertTrue(internalList.contains(aged));
+		assertTrue(internalList.contains(colored1));
+		assertTrue(internalList.contains(colored2));
 		assertTrue(internalList.contains(e1));
-		assertFalse(internalList.contains(e2));
-		
-		BoardObject boardObjectsArray[] = FlattenTree.toArray(b);
-		
-		assertEquals(4, boardObjectsArray.length); 
-		assertTrue(boardObjectsArray[0].equals(b));
-		assertTrue(boardObjectsArray[1].equals(a));
-		assertTrue(boardObjectsArray[2].equals(e1));
-		assertTrue(boardObjectsArray[3].equals(e2));
-		
-		InternalBoardObject internalBoardObjectsArray[] = FlattenTree.toArray(a);
-		
-		assertEquals(internalBoardObjectsArray.length, 2);
-		assertTrue(internalBoardObjectsArray[0].equals(a));
-		assertTrue(internalBoardObjectsArray[1].equals(e1));
-		
-		
-		
+		assertTrue(internalList.contains(e2));
+		assertTrue(internalList.contains(e3));
+
+		assertEquals(7, array.length);
+		assertTrue(arrayContains(array, b));
+		assertTrue(arrayContains(array, aged));
+		assertTrue(arrayContains(array, colored1));
+		assertTrue(arrayContains(array, colored2));
+		assertTrue(arrayContains(array, e1));
+		assertTrue(arrayContains(array, e2));
+		assertTrue(arrayContains(array, e3));
+
+		assertEquals(6, internalArray.length);
+		assertTrue(arrayContains(internalArray, aged));
+		assertTrue(arrayContains(internalArray, colored1));
+		assertTrue(arrayContains(internalArray, colored2));
+		assertTrue(arrayContains(internalArray, e1));
+		assertTrue(arrayContains(internalArray, e2));
+		assertTrue(arrayContains(internalArray, e3));
+
+	}
+
+	private <T> boolean arrayContains(T[] array, T element) {
+		for (T e : array) {
+			if (element == e) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
