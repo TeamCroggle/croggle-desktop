@@ -1,13 +1,11 @@
 package de.croggle.game.board.operations.validation;
 
+import junit.framework.TestCase;
 import de.croggle.game.Color;
 import de.croggle.game.board.AgedAlligator;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
-import de.croggle.game.board.operations.validation.BoardErrorType;
-import de.croggle.game.board.operations.validation.ValidateConstellation;
-import junit.framework.TestCase;
 
 public class ValidateConstellationTest extends TestCase {
 
@@ -87,5 +85,30 @@ public class ValidateConstellationTest extends TestCase {
 				.isValid(
 						b,
 						new BoardErrorType[] { BoardErrorType.COLOREDALLIGATOR_CHILDLESS }));
+	}
+
+	public void testSimpleValid() {
+		final Board board = new Board();
+		final AgedAlligator agedAlligator = new AgedAlligator(false, false);
+		final ColoredAlligator colored1 = new ColoredAlligator(false, false,
+				new Color(0), false);
+		final ColoredAlligator colored2 = new ColoredAlligator(false, false,
+				new Color(1), false);
+		final Egg egg1 = new Egg(false, false, new Color(0), false);
+		final Egg egg2 = new Egg(false, false, new Color(0), false);
+		board.addChild(agedAlligator);
+		colored1.addChild(egg1);
+		colored2.addChild(egg2);
+		assertTrue(ValidateConstellation.isValid(board));
+	}
+
+	public void testSimpleChildless() {
+		assertFalse(ValidateConstellation.isValid(new ColoredAlligator(false,
+				false, new Color(0), false)));
+	}
+
+	public void testSimpleUncolored() {
+		assertFalse(ValidateConstellation.isValid(new Egg(false, false, Color
+				.uncolored(), false)));
 	}
 }
