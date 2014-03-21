@@ -44,6 +44,11 @@ public class DesktopDatabase implements Database {
 	public Cursor rawQuery(String sql, String[] args) {
 		try {
 			Statement s = c.createStatement();
+			if (args != null) {
+				for (int i = 0; i < args.length; i++) {
+					sql = sql.replaceFirst("\\?", "'" + args[i].replace("'", "''") + "'");
+				}
+			}
 			ResultSet set = s.executeQuery(sql);
 
 			return new DesktopCursor(set);
