@@ -26,12 +26,13 @@ public class LoadColorEditLevelFromJsonTest extends PlatformTestCase {
 		Assert.assertTrue(l.hasAnimation());
 		Assert.assertTrue(l.getAbortSimulationAfter() == -10);
 		assertFalse(l.isSolveable(11));
+		assertTrue(l.isSolveable(9));
 	}
 	
 	public void testSolved(){
 		Level l = LevelLoadHelper.instantiate(0, 0, app);
 		final Board board = new Board();
-		final Color color = new Color(1);
+		final Color color = new Color(8);
 		final Egg egg = new Egg(false, false, color, false);
 		board.addChild(egg);
 		assertFalse(l.isLevelSolved(board, 1));
@@ -41,6 +42,7 @@ public class LoadColorEditLevelFromJsonTest extends PlatformTestCase {
 		board1.addChild(egg1);
 		assertTrue(l.isLevelSolved(board1, 1));
 		assertTrue(l.isLevelSolved(board1, 1000));
+
 	}
 
 	public void testCase1() {

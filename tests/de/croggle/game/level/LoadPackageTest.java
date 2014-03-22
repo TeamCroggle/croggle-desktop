@@ -53,4 +53,10 @@ public class LoadPackageTest extends PlatformTestCase {
 		assertNull(test02.getAnimation());
 		
 	}
+	
+	public void testAnimation(){
+		LevelPackage l = new LevelPackage(5, "package", "description",
+			"emblemPath", true, "animation", "design");
+		assertEquals(l.getAnimation(), "animation");
+	}
 }
