@@ -99,7 +99,7 @@ public class ReplaceEggsTest extends TestCase {
 	public void testColorOverflowException() {
 		final Board board = new Board();
 		Parent currentParent = board;
-		for (int i = 0; i < Color.MAX_COLORS; i++) {
+		for (int i = 1; i < Color.MAX_COLORS; i++) {
 			final ColoredAlligator alligator = new ColoredAlligator(false,
 					false, new Color(i), false);
 			currentParent.addChild(alligator);
@@ -135,8 +135,26 @@ public class ReplaceEggsTest extends TestCase {
 		}
 
 	}
-	
+
 	public void testFreeColorOverflowException() {
-		fail();
+		final Board board = new Board();
+		Parent currentParent = board;
+		for (int i = 1; i < Color.MAX_COLORS; i++) {
+			final ColoredAlligator alligator = new ColoredAlligator(false,
+					false, new Color(i), false);
+			currentParent.addChild(alligator);
+			currentParent = alligator;
+		}
+		currentParent.addChild(new Egg(false, false, new Color(0), false));
+		final AgedAlligator bornFamily = new AgedAlligator(false, false);
+		for (int i = 0; i < Color.MAX_COLORS; i++) {
+			bornFamily.addChild(new Egg(false, false, new Color(i), false));
+		}
+		try {
+			ReplaceEggs.replace(board, new Color(0), bornFamily,
+					new ColorController());
+			fail();
+		} catch (ColorOverflowException e) {
+		}
 	}
 }
