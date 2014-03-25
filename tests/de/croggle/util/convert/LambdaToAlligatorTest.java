@@ -57,14 +57,14 @@ public class LambdaToAlligatorTest extends TestCase {
 		catch (IllegalArgumentException e) {
 			assertTrue(true);
 		}
-		/*
+		
 		try {
 			LambdaToAlligator.convert(term1);
 			fail();
 		}
 		catch (IllegalArgumentException e) {
 			assertTrue(true);
-		}*/
+		}
 		try {
 			LambdaToAlligator.convert(term3);
 			fail();
