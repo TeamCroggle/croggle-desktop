@@ -36,6 +36,45 @@ public class LambdaToAlligatorTest extends TestCase {
 		String s = AlligatorToLambda.convert(b);
 		assertEquals("λx.x y", s);
 	}
+	
+	public void testExceptions() {
+		String term1 = "λx.(x.y)";
+		String term2 = "(λx.x y";
+		String term3 = "(λx x) y";
+		String term4 = "λx.x";
+		String term5 = "(λx.x) y q w e r t z u i o p a s d f g h j k l c v b n m 1 2 3 4 5 6 7 8 9";
+		try {
+			LambdaToAlligator.convert(term5);
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+		try {
+			LambdaToAlligator.convert(term2);
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+		/*
+		try {
+			LambdaToAlligator.convert(term1);
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}*/
+		try {
+			LambdaToAlligator.convert(term3);
+			fail();
+		}
+		catch (IllegalArgumentException e) {
+			assertTrue(true);
+		} 
+		
+		
+	}
 
 	@Override
 	public void tearDown() {
