@@ -221,7 +221,8 @@ public class HeadlessApplication implements Application {
 		if (preferences.containsKey(name)) {
 			return preferences.get(name);
 		} else {
-			Preferences prefs = new HeadlessPreferences(name, ".prefs/");
+			Preferences prefs = new HeadlessPreferences(
+					Gdx.files.local(".config/test/"));
 			preferences.put(name, prefs);
 			return prefs;
 		}
