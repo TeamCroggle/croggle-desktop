@@ -1,9 +1,14 @@
 package de.croggle.game;
 
 import junit.framework.TestCase;
+import de.croggle.AlligatorApp;
+import de.croggle.game.board.AgedAlligator;
 import de.croggle.game.board.AlligatorOverflowException;
 import de.croggle.game.board.Board;
+import de.croggle.game.board.ColoredAlligator;
+import de.croggle.game.board.Egg;
 import de.croggle.game.board.IllegalBoardException;
+import de.croggle.game.board.Parent;
 import de.croggle.game.board.operations.RemoveUselessAgedAlligators;
 import de.croggle.game.event.BoardEventMessenger;
 import de.croggle.util.convert.AlligatorToLambda;
@@ -85,6 +90,104 @@ public class SimulatorTest extends TestCase {
 		inputOutputTest(
 				"(λa.λb.λs.λz.(a s (b s z))) (λs.λz.(s (s (s z)))) (λs.λz.(s (s (s (s z)))))",
 				"(λs.λz.s (s (s (s (s (s (s z)))))))", 6);
+	}
+
+	public void testIllegalBoard() {
+		if (AlligatorApp.DEBUG) {
+			// skip test
+			return;
+		}
+		final Board uncoloredBoard = new Board();
+		uncoloredBoard
+				.addChild(new Egg(false, false, Color.uncolored(), false));
+		try {
+			new Simulator(uncoloredBoard, new ColorController(),
+					new BoardEventMessenger());
+			fail();
+		} catch (IllegalBoardException e) {
+		}
+
+		final Board missingChildrenBoard = new Board();
+		missingChildrenBoard.addChild(new ColoredAlligator(false, false,
+				new Color(0), false));
+		try {
+			new Simulator(missingChildrenBoard, new ColorController(),
+					new BoardEventMessenger());
+			fail();
+		} catch (IllegalBoardException e) {
+		}
+
+		final Board missingChildrenBoard2 = new Board();
+		missingChildrenBoard.addChild(new AgedAlligator(false, false));
+		try {
+			new Simulator(missingChildrenBoard, new ColorController(),
+					new BoardEventMessenger());
+			fail();
+		} catch (IllegalBoardException e) {
+		}
+	}
+
+	public void testColorOverflow() throws IllegalBoardException {
+		final Board board = new Board();
+		Parent currentParent = board;
+		for (int i = 0; i < Color.MAX_COLORS; i++) {
+			final ColoredAlligator colored = new ColoredAlligator(false, false,
+					new Color(i), false);
+			currentParent.addChild(colored);
+			currentParent = colored;
+		}
+		currentParent.addChild(new Egg(false, false, new Color(0), false));
+		final ColoredAlligator colored = new ColoredAlligator(false, false,
+				new Color(0), false);
+		final ColoredAlligator colored2 = new ColoredAlligator(false, false,
+				new Color(1), false);
+		colored2.addChild(new Egg(false, false, new Color(0), false));
+		colored.addChild(colored2);
+		board.addChild(colored);
+
+		final Simulator simulator = new Simulator(board, new ColorController(),
+				new BoardEventMessenger());
+
+		try {
+			simulator.evaluate();
+			fail();
+		} catch (ColorOverflowException e) {
+		} catch (AlligatorOverflowException e) {
+			fail();
+		}
+	}
+
+	public void testAlligatorOverflow() throws IllegalBoardException {
+		final Board board = new Board();
+		final ColoredAlligator colored = new ColoredAlligator(false, false,
+				new Color(0), false);
+		final ColoredAlligator colored2 = new ColoredAlligator(false, false,
+				new Color(1), false);
+
+		colored.addChild(new Egg(false, false, new Color(0), false));
+		colored.addChild(new Egg(false, false, new Color(0), false));
+		final int max_objects = 300;
+		// already 2 ColoredAlligators and 2 * 2 Eggs
+		for (int i = 0; i < 300 - 2 - 2 - 2; i++) {
+			colored.addChild(new Egg(false, false, new Color(1), false));
+		}
+
+		colored2.addChild(new Egg(false, false, new Color(1), false));
+		colored2.addChild(new Egg(false, false, new Color(1), false));
+
+		board.addChild(colored);
+		board.addChild(colored2);
+
+		final Simulator simulator = new Simulator(board, new ColorController(),
+				new BoardEventMessenger());
+
+		try {
+			simulator.evaluate();
+			fail();
+		} catch (ColorOverflowException e) {
+			fail();
+		} catch (AlligatorOverflowException e) {
+		}
 	}
 
 	private void inputOutputTest(String input, String output, int maxSteps)
