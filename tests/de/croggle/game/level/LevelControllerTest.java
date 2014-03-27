@@ -19,12 +19,6 @@ public class LevelControllerTest extends PlatformTestCase {
 		assertTrue(controller.getPackageSize() == 12);
 	}
 
-	public void testLevel() {
-		Assert.assertTrue(controller
-				.getLevel(0)
-				.getDescription()
-				.equals("Erstes Tutorial Level in dem das Einfärben von Spielelementen erklärt wird."));
-	}
 
 	public void testGetter() {
 		controller.getPackageIndex();

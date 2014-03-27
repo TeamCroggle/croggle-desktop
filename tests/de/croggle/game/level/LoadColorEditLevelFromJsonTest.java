@@ -37,7 +37,7 @@ public class LoadColorEditLevelFromJsonTest extends PlatformTestCase {
 		board.addChild(egg);
 		assertFalse(l.isLevelSolved(board, 1));
 		final Board board1 = new Board();
-		final Color color1 = new Color(5);
+		final Color color1 = new Color(14);
 		final Egg egg1 = new Egg(false, false, color1, false);
 		board1.addChild(egg1);
 		assertTrue(l.isLevelSolved(board1, 1));

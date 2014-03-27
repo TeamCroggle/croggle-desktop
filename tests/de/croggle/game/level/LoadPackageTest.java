@@ -23,14 +23,6 @@ public class LoadPackageTest extends PlatformTestCase {
 		Assert.assertTrue(list.size() == 2);
 	}
 
-	public void testLoadedValues() {
-		LevelPackagesController controller = new LevelPackagesController(app);
-
-		List<LevelPackage> list = controller.getLevelPackages();
-		LevelPackage one = list.get(0);
-		Assert.assertEquals(one.getDescription(),
-				"Levelpaket zum Erlernen von Croggle.");
-	}
 	
 	public void testController(){
 		LevelPackagesController controller = new LevelPackagesController(app);
