@@ -1,12 +1,8 @@
 package de.croggle.game.achievement;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.TestCase;
 import de.croggle.data.LocalizationHelper;
 import de.croggle.data.persistence.Statistic;
-import de.croggle.game.achievement.*;
 import de.croggle.test.TestLocalizationBackend;
 
 public class AlligatorsEatenPerLevelAchievementTest extends TestCase {
@@ -24,8 +20,10 @@ public class AlligatorsEatenPerLevelAchievementTest extends TestCase {
 		for (int i = 1; i < 6; i++) {
 			assertTrue(testAchievement.getStage(i) == testStages[i]);
 			assertTrue(testAchievement.getDescription(i).endsWith("level"));
-			assertTrue(testAchievement.getEmblemPathAchieved(i).equals("emblems/alligatorsEatenPerLevel/0" + i + "a"));
-			assertTrue(testAchievement.getEmblemPathNotAchieved(i).equals("emblems/alligatorsEatenPerLevel/0" + i + "n"));
+			assertTrue(testAchievement.getEmblemPathAchieved(i).equals(
+					"emblems/alligatorsEatenPerLevel/0" + i + "a"));
+			assertTrue(testAchievement.getEmblemPathNotAchieved(i).equals(
+					"emblems/alligatorsEatenPerLevel/0" + i + "n"));
 		}
 	}
 
@@ -35,6 +33,8 @@ public class AlligatorsEatenPerLevelAchievementTest extends TestCase {
 		testAchievement.setStages(testStages);
 		Statistic testStatistic = new Statistic();
 		testStatistic.setAlligatorsEaten(30);
+		// also trigger the per-level achievements
+		testStatistic.setLevelsComplete(1);
 		assertTrue(testAchievement
 				.requirementsMet(testStatistic, testStatistic) == 5);
 		testStatistic.setAlligatorsEaten(4);

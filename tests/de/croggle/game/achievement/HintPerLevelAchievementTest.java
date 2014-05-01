@@ -1,16 +1,13 @@
 package de.croggle.game.achievement;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.TestCase;
 import de.croggle.data.LocalizationHelper;
 import de.croggle.data.persistence.Statistic;
-import de.croggle.game.achievement.*;
 import de.croggle.test.TestLocalizationBackend;
 
 public class HintPerLevelAchievementTest extends TestCase {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
@@ -24,8 +21,10 @@ public class HintPerLevelAchievementTest extends TestCase {
 		int[] testStages = { 1, 0 };
 		assertTrue(testAchievement.getStage(0) == testStages[0]);
 		assertTrue(testAchievement.getDescription(1).endsWith("sed"));
-		assertTrue(testAchievement.getEmblemPathAchieved(1).equals("emblems/hintsUsedPerLevel/01a"));
-		assertTrue(testAchievement.getEmblemPathNotAchieved(1).equals("emblems/hintsUsedPerLevel/01n"));
+		assertTrue(testAchievement.getEmblemPathAchieved(1).equals(
+				"emblems/hintsUsedPerLevel/01a"));
+		assertTrue(testAchievement.getEmblemPathNotAchieved(1).equals(
+				"emblems/hintsUsedPerLevel/01n"));
 	}
 
 	public void testRequirementsMet() {
@@ -35,6 +34,8 @@ public class HintPerLevelAchievementTest extends TestCase {
 		testAchievement.setStages(testStages);
 		Statistic testStatistic = new Statistic();
 		testStatistic.setUsedHints(1);
+		// also trigger the per-level achievements
+		testStatistic.setLevelsComplete(1);
 		assertTrue(testAchievement
 				.requirementsMet(testStatistic, testStatistic) == 0);
 		testStatistic.setUsedHints(0);
@@ -43,6 +44,7 @@ public class HintPerLevelAchievementTest extends TestCase {
 
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
