@@ -59,12 +59,15 @@ public class AchievementControllerTest extends TestCase {
 		statistic2.setPackagesComplete(0);
 		statistic2.setPlaytime(0);
 		statistic2.setUsedHints(1);
+		// also trigger the per-level achievements
+		statistic2.setLevelsComplete(1);
 
 		List<Achievement> unlockedAchievement = achievementController
 				.updateAchievements(statistic1, statistic2);
 
-		List<Achievement> unlockedViaMethod = achievementController.getUnlockedAchievements();
-		
+		List<Achievement> unlockedViaMethod = achievementController
+				.getUnlockedAchievements();
+
 		assertTrue(unlockedViaMethod.size() == 0);
 		assertTrue(unlockedAchievement.isEmpty());
 		for (Achievement achievement5 : achievementController
@@ -73,7 +76,6 @@ public class AchievementControllerTest extends TestCase {
 														// it's initiazation
 														// stage yet.
 
-		
 		for (Achievement achievement2 : achievementController
 				.getLatestUnlockedAchievements()) {
 			assertTrue(achievementController.getAvailableAchievements()
@@ -91,7 +93,7 @@ public class AchievementControllerTest extends TestCase {
 
 		unlockedAchievement = achievementController.updateAchievements(
 				statistic1, statistic2);
-		
+
 		assertTrue(unlockedAchievement.size() == 7);
 
 		for (Achievement achievement3 : unlockedAchievement) {
@@ -116,9 +118,9 @@ public class AchievementControllerTest extends TestCase {
 
 		unlockedAchievement = achievementController.updateAchievements(
 				statistic1, statistic2);
-		
+
 		unlockedViaMethod = achievementController.getUnlockedAchievements();
-		
+
 		assertTrue(unlockedViaMethod.size() == 7);
 
 		for (Achievement achievement6 : unlockedAchievement) {
