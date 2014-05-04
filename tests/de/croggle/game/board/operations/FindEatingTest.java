@@ -60,7 +60,7 @@ public class FindEatingTest extends TestCase {
 	 * operation must not find eatings on alligators which are preceded by eggs.
 	 */
 	public void testAssociativity() {
-		Board b = LambdaToAlligator.convert("x λx.x y");
+		Board b = LambdaToAlligator.convert("x (λx.x) y");
 		ColoredAlligator eater = FindEating.findEater(b);
 		assertNull(eater);
 	}
