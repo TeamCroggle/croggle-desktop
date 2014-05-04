@@ -7,7 +7,7 @@ import de.croggle.game.board.Board;
 import de.croggle.game.board.Egg;
 import de.croggle.game.event.BoardEventMessenger;
 
-public class RemoveAgedAlligatorsTest extends TestCase {
+public class RemoveLonelyAgedAlligatorsTest extends TestCase {
 
 	public void testRemove() {
 		removeTestWithMessenger(new BoardEventMessenger());
