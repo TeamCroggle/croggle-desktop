@@ -15,6 +15,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.badlogic.gdx.Gdx;
+
 import de.croggle.backends.DesktopBackendHelper;
 import de.croggle.backends.LocalizationBackend;
 import de.croggle.util.StringUtils;
@@ -73,7 +75,8 @@ public class DesktopLocalizationBackend implements LocalizationBackend {
 			valueFolder = new File(DesktopBackendHelper.getResourceDirPath()
 					+ "values");
 			if (!valueFolder.exists() || !valueFolder.isDirectory()) {
-				System.err.println("Unable to find any values");
+				Gdx.app.log("DesktopLocalizationBackend",
+						"Unable to find any values");
 				return null;
 			}
 		}
@@ -81,8 +84,8 @@ public class DesktopLocalizationBackend implements LocalizationBackend {
 		File strings = new File(valueFolder.getPath() + File.separator
 				+ "strings.xml");
 		if (!strings.exists() || strings.isDirectory()) {
-			System.err.println("No usable strings.xml found by "
-					+ strings.getPath());
+			Gdx.app.log("DesktopLocalizationBackend",
+					"No usable strings.xml found by " + strings.getPath());
 			return null;
 		}
 		return strings.getPath();

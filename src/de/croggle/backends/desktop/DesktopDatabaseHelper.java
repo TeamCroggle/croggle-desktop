@@ -44,8 +44,8 @@ public class DesktopDatabaseHelper extends DatabaseHelper {
 	public void close() {
 		try {
 			if (database == null || open <= 0) {
-				System.err
-						.println("Closing the database more often than opened");
+				Gdx.app.log("DesktopDatabaseHelper",
+						"Closing the database more often than opened");
 			} else {
 				open--;
 				if (open == 0) {
