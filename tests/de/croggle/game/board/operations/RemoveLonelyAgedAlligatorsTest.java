@@ -7,7 +7,7 @@ import de.croggle.game.board.Board;
 import de.croggle.game.board.Egg;
 import de.croggle.game.event.BoardEventMessenger;
 
-public class RemoveAgedAlligatorsTest extends TestCase {
+public class RemoveLonelyAgedAlligatorsTest extends TestCase {
 
 	public void testRemove() {
 		removeTestWithMessenger(new BoardEventMessenger());
@@ -27,7 +27,7 @@ public class RemoveAgedAlligatorsTest extends TestCase {
 		aged3.addChild(new Egg(false, false, new Color(0), false));
 		aged3.addChild(new Egg(false, false, new Color(0), false));
 
-		RemoveAgedAlligators.remove(board, messenger);
+		RemoveLonelyAgedAlligators.remove(board, messenger);
 
 		assertSame(egg, board.getChildAtPosition(0));
 		assertSame(aged3, board.getChildAtPosition(1));

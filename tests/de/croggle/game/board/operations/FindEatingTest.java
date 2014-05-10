@@ -1,11 +1,12 @@
 package de.croggle.game.board.operations;
 
+import junit.framework.TestCase;
 import de.croggle.game.Color;
 import de.croggle.game.board.AgedAlligator;
 import de.croggle.game.board.Board;
 import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
-import junit.framework.TestCase;
+import de.croggle.util.convert.LambdaToAlligator;
 
 public class FindEatingTest extends TestCase {
 
@@ -22,8 +23,10 @@ public class FindEatingTest extends TestCase {
 		assertEquals(a, FindEating.findEater(b));
 	}
 
+	/**
+	 * test if the left-most eater eats, not the top-most
+	 */
 	public void testPrecedence() {
-		// test if the left-most eater eats, not the top-most
 		// the following term can be roughly given as ((λx.x) (λy.y)) (λx.x) y
 		Board b = new Board();
 		AgedAlligator aa = new AgedAlligator(true, true);
@@ -52,4 +55,13 @@ public class FindEatingTest extends TestCase {
 		assertEquals(a1, FindEating.findEater(b));
 	}
 
+	/**
+	 * Test if the associativity is being complied with. That means that the
+	 * operation must not find eatings on alligators which are preceded by eggs.
+	 */
+	public void testAssociativity() {
+		Board b = LambdaToAlligator.convert("x (λx.x) y");
+		ColoredAlligator eater = FindEating.findEater(b);
+		assertNull(eater);
+	}
 }

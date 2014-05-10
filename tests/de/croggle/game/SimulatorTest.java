@@ -9,7 +9,7 @@ import de.croggle.game.board.ColoredAlligator;
 import de.croggle.game.board.Egg;
 import de.croggle.game.board.IllegalBoardException;
 import de.croggle.game.board.Parent;
-import de.croggle.game.board.operations.RemoveUselessAgedAlligators;
+import de.croggle.game.board.operations.RemoveNeedlessAgedAlligators;
 import de.croggle.game.event.BoardEventMessenger;
 import de.croggle.util.convert.AlligatorToLambda;
 import de.croggle.util.convert.LambdaToAlligator;
@@ -200,7 +200,7 @@ public class SimulatorTest extends TestCase {
 		Board evaluated = simulator.getCurrentBoard();
 		for (int i = 0; i < maxSteps; i++) {
 			simulator.evaluate();
-			RemoveUselessAgedAlligators.remove(evaluated,
+			RemoveNeedlessAgedAlligators.remove(evaluated,
 					new BoardEventMessenger());
 			if (MatchWithRenaming.match(outputBoard, evaluated)) {
 				return;
